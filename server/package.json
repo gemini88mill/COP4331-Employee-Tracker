@@ -1,0 +1,32 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "Group 11 project for Fall 2017 COP 4331.",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "connect-flash": "^0.1.1",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "method-override": "^2.3.10",
+    "mongoose": "^4.12.5",
+    "passport": "^0.4.0",
+    "passport-local-mongoose": "^4.4.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/gemini88mill/COP4331-Employee-Tracker.git"
+  },
+  "author": "Gabrielle Michaels",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gemini88mill/COP4331-Employee-Tracker/issues"
+  },
+  "homepage": "https://github.com/gemini88mill/COP4331-Employee-Tracker#readme"
+}
