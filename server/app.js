@@ -3,7 +3,6 @@
 // ------------------ //
 var bodyParser      = require("body-parser"),
     methodOverride  = require("method-override"),
-    expressSanitizer= require("express-sanitizer"),
     mongoose        = require("mongoose"),
     localStrategy   = require("passport-local"),
     passport        = require("passport"),
@@ -23,9 +22,8 @@ app.use(flash());
 // ------------------ //
 // -----MONGOOSE----- //
 // ------------------ //
-mongoose.connect("mongodb://localhost/employees");
-// var Post    = require("./models/post"),
-//     User    = require("./models/user");
+mongoose.connect("mongodb://localhost/employeetracker");
+var Employee    = require("./models/employee");
 
 
 // ------------------ //
