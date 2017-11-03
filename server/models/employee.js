@@ -21,7 +21,7 @@ var employeeSchema = new mongoose.Schema( {
     
     locations: {
         type: [{
-            type: { type: String }, // this seems to be how to store coordinates according to internet
+            type: { type: String }, // TODO: check that this is correct geocoordinate storage
             coordinates: [Number]
         }],
         validate: [arrayLimit, '{PATH} exceeds the limit of 5']

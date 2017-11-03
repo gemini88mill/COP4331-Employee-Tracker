@@ -14,7 +14,6 @@ var app = express();
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "public"));
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(expressSanitizer());
 app.use(methodOverride("_method"));
 app.use(flash());
 
@@ -58,8 +57,8 @@ app.use(function(req, res, next) {
 // app.use("/", indexRoutes);
 // app.use("/posts", postRoutes);
 
+app.set('port', process.env.PORT || 3000);
 
-// START SERVER
-app.listen(process.env.PORT, process.env.IP, function() {
-    console.log("Employee Tracker server started, listening on port " + process.env.PORT + ".");
+app.listen(app.get('port'), function() {
+    console.log("Employee Tracker server started, listening on port " + app.get('port') + ".");
 });
