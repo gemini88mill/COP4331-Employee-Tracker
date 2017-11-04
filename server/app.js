@@ -8,6 +8,8 @@ var bodyParser      = require("body-parser"),
     passport        = require("passport"),
     flash           = require("connect-flash"),
     express         = require("express");
+    routes          = require('./routes/index'),
+    api             = require('./routes/api')
 
 // app setup
 var app = express();
