@@ -56,6 +56,9 @@ app.use(function(req, res, next) {
 
 // app.use("/", indexRoutes);
 // app.use("/posts", postRoutes);
+app.use('/api', api)
+app.use('/', routes)
+
 
 app.set('port', process.env.PORT || 3000);
 
