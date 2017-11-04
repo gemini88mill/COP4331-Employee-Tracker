@@ -8,6 +8,8 @@ var bodyParser      = require("body-parser"),
     passport        = require("passport"),
     flash           = require("connect-flash"),
     express         = require("express");
+    routes          = require('./routes/index'),
+    api             = require('./routes/api')
 
 // app setup
 var app = express();
@@ -56,6 +58,9 @@ app.use(function(req, res, next) {
 
 // app.use("/", indexRoutes);
 // app.use("/posts", postRoutes);
+app.use('/api', api)
+app.use('/', routes)
+
 
 app.set('port', process.env.PORT || 3000);
 
