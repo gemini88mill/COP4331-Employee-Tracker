@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
   // Dummy return value
   return res.json({
     type: 'GET',
-    message: 'list all users request',
+    message: 'list all tasks request',
     receivedData: req.body
   })
 })
