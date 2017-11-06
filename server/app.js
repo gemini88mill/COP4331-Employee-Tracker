@@ -7,14 +7,13 @@ var bodyParser      = require("body-parser"),
     localStrategy   = require("passport-local"),
     passport        = require("passport"),
     flash           = require("connect-flash"),
+    path            = require('path'),
     express         = require("express");
-    routes          = require('./routes/index'),
-    api             = require('./routes/api')
 
 // app setup
 var app = express();
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + "public"));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
@@ -23,7 +22,8 @@ app.use(flash());
 // ------------------ //
 // -----MONGOOSE----- //
 // ------------------ //
-mongoose.connect("mongodb://localhost/employeetracker");
+// mongoose.connect("mongodb://localhost/employeetracker");
+mongoose.createConnection("mongodb://localhost/employeetracker");
 var Employee    = require("./models/employee");
 
 
@@ -58,8 +58,7 @@ app.use(function(req, res, next) {
 
 // app.use("/", indexRoutes);
 // app.use("/posts", postRoutes);
-app.use('/api', api)
-app.use('/', routes)
+app.use('/', require('./routes/index'))
 
 
 app.set('port', process.env.PORT || 3000);
