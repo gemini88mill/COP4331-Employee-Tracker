@@ -24,5 +24,23 @@ let taskCtrls = {
 
   create: function($scope, $http, $routeParams) {
     console.log('Loaded task creation controller.')
+  },
+
+  edit: function($scope, $http, $routeParams) {
+    console.log('Loaded task edit controller.')
+  }
+}
+
+let teamCtrls = {
+  list: function($scope, $http, $routeParams) {
+    console.log('Loaded team listing controller.')
+  },
+
+  create: function($scope, $http, $routeParams) {
+    console.log('Loaded team creation controller.')
+  },
+
+  edit: function($scope, $http, $routeParams) {
+    console.log('Loaded team edit controller.')
   }
 }
