@@ -12,6 +12,7 @@ let userCtrls = {
   },
 
   viewProfile: function($scope, $http, $routeParams) {
+    $scope.userid = $routeParams.id
     console.log('Loaded user profile controller.')
   }
 }
@@ -20,7 +21,7 @@ let taskCtrls = {
   list: function($scope, $http, $routeParams) {
     console.log('Loaded task listing controller.')
   },
-  
+
   create: function($scope, $http, $routeParams) {
     console.log('Loaded task creation controller.')
   }
