@@ -4,6 +4,7 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+package-lock.json
 
 # Runtime data
 pids
@@ -20,7 +21,7 @@ coverage
 # nyc test coverage
 .nyc_output
 
-# Grunt intermediate storage 
+# Grunt intermediate storage
 (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
