@@ -30,7 +30,7 @@
 
         .when('/tasks/', {
           templateUrl: 'views/task/list',
-          controller: 'tasksCtrl'
+          controller: 'taskListCtrl'
         })
         .when('/task/create', {
           templateUrl: 'views/task/create',
@@ -43,7 +43,7 @@
 
         .when('/teams/', {
           templateUrl: 'views/team/list',
-          controller: 'teamCtrl'
+          controller: 'teamListCtrl'
         })
         .when('/team/create', {
           templateUrl: 'views/team/create',
@@ -63,10 +63,10 @@
     .controller('loginCtrl', userCtrls.login)
     .controller('userViewCtrl', userCtrls.view)
     .controller('userEditCtrl', userCtrls.edit)
-    .controller('taskCtrl', taskCtrls.list)
+    .controller('taskListCtrl', taskCtrls.list)
     .controller('taskCreateCtrl', taskCtrls.create)
     .controller('taskEditCtrl', taskCtrls.edit)
-    .controller('teamCtrl', teamCtrls.list)
+    .controller('teamListCtrl', teamCtrls.list)
     .controller('teamCreateCtrl', teamCtrls.create)
     .controller('teamEditCtrl', teamCtrls.edit)
 
