@@ -21,7 +21,11 @@
         })
         .when('/user/:id', {
           templateUrl: 'views/user/profile',
-          controller: 'userProfileCtrl'
+          controller: 'userViewCtrl'
+        })
+        .when('/user/edit/:id', {
+          templateUrl: 'views/user/edit',
+          controller: 'userEditCtrl'
         })
 
         .when('/tasks/', {
@@ -57,7 +61,8 @@
     .controller('mainCtrl', main)
     .controller('registerCtrl', userCtrls.register)
     .controller('loginCtrl', userCtrls.login)
-    .controller('userProfileCtrl', userCtrls.viewProfile)
+    .controller('userViewCtrl', userCtrls.view)
+    .controller('userEditCtrl', userCtrls.edit)
     .controller('taskCtrl', taskCtrls.list)
     .controller('taskCreateCtrl', taskCtrls.create)
     .controller('taskEditCtrl', taskCtrls.edit)

@@ -11,7 +11,7 @@ let userCtrls = {
     console.log('Loaded login controller')
   },
 
-  viewProfile: function($scope, $http, $routeParams) {
+  view: function($scope, $http, $routeParams) {
     $scope.userid = $routeParams.id
     console.log('Loaded user profile controller.')
   }
