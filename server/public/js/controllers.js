@@ -12,7 +12,7 @@ let userCtrls = {
   },
 
   view: function($scope, $http, $routeParams) {
-    $scope.userid = $routeParams.id
+    $scope.id = $routeParams.id
     console.log('Loaded user profile controller.')
   }
 }
@@ -27,6 +27,7 @@ let taskCtrls = {
   },
 
   edit: function($scope, $http, $routeParams) {
+    $scope.id = $routeParams.id
     console.log('Loaded task edit controller.')
   }
 }
