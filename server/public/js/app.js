@@ -19,6 +19,11 @@
           templateUrl: 'views/user/login',
           controller: 'loginCtrl'
         })
+        .when('/user/:id', {
+          templateUrl: 'views/user/profile',
+          controller: 'userProfileCtrl'
+        })
+
         .when('/tasks/', {
           templateUrl: 'views/task/list',
           controller: 'tasksCtrl'
@@ -27,18 +32,24 @@
           templateUrl: 'views/task/create',
           controller: 'taskCreateCtrl'
         })
+        .when('/task/edit/:id', {
+          templateUrl: 'views/task/edit',
+          controller: 'taskEditCtrl'
+        })
+
         .when('/teams/', {
-          templateUrl: 'views/task/list',
-          controller: 'tasksCtrl'
+          templateUrl: 'views/team/list',
+          controller: 'teamCtrl'
         })
         .when('/team/create', {
-          templateUrl: 'views/task/create',
-          controller: 'taskCreateCtrl'
+          templateUrl: 'views/team/create',
+          controller: 'teamCreateCtrl'
         })
-        .when('/user/:id', {
-          templateUrl: 'views/user/profile',
-          controller: 'userProfileCtrl'
+        .when('/team/edit/:id', {
+          templateUrl: 'views/team/edit',
+          controller: 'teamEditCtrl'
         })
+
         .otherwise({
           redirectTo: '/'
         })
@@ -46,8 +57,12 @@
     .controller('mainCtrl', main)
     .controller('registerCtrl', userCtrls.register)
     .controller('loginCtrl', userCtrls.login)
-    .controller('tasksCtrl', taskCtrls.list)
-    .controller('taskCreateCtrl', taskCtrls.create)
     .controller('userProfileCtrl', userCtrls.viewProfile)
+    .controller('taskCtrl', taskCtrls.list)
+    .controller('taskCreateCtrl', taskCtrls.create)
+    .controller('taskEditCtrl', taskCtrls.edit)
+    .controller('teamCtrl', teamCtrls.list)
+    .controller('teamCreateCtrl', teamCtrls.create)
+    .controller('teamEditCtrl', teamCtrls.edit)
 
 })()
