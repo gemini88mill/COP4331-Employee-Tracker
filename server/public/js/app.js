@@ -8,29 +8,35 @@
       $locationProvider.html5Mode(true)
       $routeProvider
         .when('/', {
-          templateUrl: '/partials/home',
+          templateUrl: 'views/home',
           controller: 'mainCtrl'
         })
         .when('/register', {
-          templateUrl: 'partials/register',
+          templateUrl: 'views/user/register',
           controller: 'registerCtrl'
         })
         .when('/login', {
-          templateUrl: 'partials/login',
+          templateUrl: 'views/user/login',
           controller: 'loginCtrl'
         })
         .when('/tasks/', {
-          templateUrl: 'partials/tasks',
+          templateUrl: 'views/task/list',
           controller: 'tasksCtrl'
         })
         .when('/task/create', {
-          templateUrl: 'partials/task-create',
+          templateUrl: 'views/task/create',
           controller: 'taskCreateCtrl'
         })
-        // TODO(timp): To be implemented once a connection can be made to the
-        // database and there is existing users
+        .when('/teams/', {
+          templateUrl: 'views/task/list',
+          controller: 'tasksCtrl'
+        })
+        .when('/team/create', {
+          templateUrl: 'views/task/create',
+          controller: 'taskCreateCtrl'
+        })
         .when('/user/:id', {
-          templateUrl: 'partials/user-profile',
+          templateUrl: 'views/user/profile',
           controller: 'userProfileCtrl'
         })
         .otherwise({
