@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Big Brother</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="buttonLogin">Submit</string>
 </resources>
