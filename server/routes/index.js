@@ -1,33 +1,25 @@
 'use strict'
-const express = require('express'),
-      router  = express.Router(),
-      path    = require('path')
+const router   = require('express').Router(),
+      path     = require('path'),
+      passport = require('passport')
+
+
+// API routes
+router.use('/api', require('./api'))
 
 // Index page
 router.get('/', (req, res) => {
-  res.sendFile(path.join(
-    __dirname, '..', '..', 'public', 'views', 'index.html'))
+  res.sendFile(path.join(__dirname, '..', 'views', 'index.html'))
 })
 
 // Load partials
 router.get('/partials/:name', (req, res) => {
-  res.sendFile(path.join(
-    __dirname, '..', '..', 'public', 'views', 'partials', req.params.name + '.html'))
-})
-
-// Load scripts
-// NOTE(timp): I'm not sure why this is needed, but it has something to do with
-// the current routing in server's app.js. Without this extra case, it just
-// passes back the index page instead of the actual js/app.js
-router.get('/js/:name', (req, res) => {
-  res.sendFile(path.join(
-    __dirname, '..', '..', 'public', 'js', req.params.name))
+  res.sendFile(path.join(__dirname, '..', 'views', 'partials', req.params.name + '.html'))
 })
 
 // Fallback - Route back to index
 router.get('*', (req, res) => {
-  res.sendFile(path.join(
-    __dirname, '..', '..', 'public', 'views', '404.html'))
+  res.sendFile(path.join(__dirname, '..', 'views', 'index.html'))
 })
 
 module.exports = router

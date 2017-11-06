@@ -1,21 +1,11 @@
 'use strict'
-const express = require('express'),
-      router  = express.Router(),
-      path    = require('path')
+const router   = require('express').Router(),
+      path     = require('path'),
+      passport = require('passport')
 
-
-// Registration
-router.post('/register', (req, res) => {
-  'use strict'
-  // TODO(timp): Connect to DB and insert new user
-
-  // Dummy return value
-  return res.json({
-    type: 'POST',
-    message: 'Registration request',
-    receivedData: req.body
-  })
-})
+router.use('/user', require('./user'))
+router.use('/task', require('./task'))
+router.use('/team', require('./team'))
 
 // Fallback requests
 router.get('*', (req, res) => {
