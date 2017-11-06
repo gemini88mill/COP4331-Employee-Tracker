@@ -14,7 +14,15 @@ let userCtrls = {
   view: function($scope, $http, $routeParams) {
     $scope.userid = $routeParams.id
     console.log('Loaded user profile controller.')
-  }
+
+    var mapOptions = {
+                  zoom: 4,
+                  center: new google.maps.LatLng(25,80),
+                  mapTypeId: google.maps.MapTypeId.TERRAIN
+              }
+
+    $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    }
 }
 
 let taskCtrls = {
