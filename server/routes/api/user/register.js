@@ -1,42 +1,31 @@
 'use strict'
 const router   = require('express').Router(),
       passport = require('passport'),
-      mongoose = require('mongoose')
+      Employee = require('../../../models/employee.js')
 
 // Registration
 router.post('/', (req, res) => {
   'use strict'
-  var url = 'mongodb://localhost/employeetracker'
+  let data = {
+    username: req.body.email,
+    password: req.body.password,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName
+  }
 
-  // mongoose.connect(url, {useMongoClient: true}, function(err, db) {
-  //   if (err) return
-  //
-  //   var collection = db.collection('employee')
-  //   collection.insert({firstName: 'John', lastName: 'Doe', username: 'jdoe', password: 'admin'}, function(err, result) {
-  //     collection.find({name: 'John'}).toArray(function(err, docs) {
-  //       console.log(docs[0])
-  //       db.close()
-  //     })
-  //   })
-  // })
-
-  mongoose.connect(url, {
-    useMongoClient: true
+  let entry = new Employee(data)
+  entry.username = 'testname'
+  console.log(entry);
+  entry.save(function(err) {
+    if (err) console.log(err)
+    else res.json({
+      type: 'POST',
+      message: 'Registration was successful',
+      status: 200,
+      data: req.body
+    })
   })
 
-  let db = mongoose.connection
-
-  db.on('error', console.error.bind(console, 'MongoDB connection error:'))
-
-
-  // TODO
-
-  // Dummy return value
-  return res.json({
-    type: 'POST',
-    message: 'Registration request',
-    receivedData: req.body
-  })
 })
 
 module.exports = router
