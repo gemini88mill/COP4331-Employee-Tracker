@@ -17,7 +17,15 @@ router.post('/', (req, res) => {
   entry.username = 'testname'
   console.log(entry);
   entry.save(function(err) {
-    if (err) console.log(err)
+    if (err) {
+      console.log(err)
+      res.json({
+        type: 'POST',
+        message: 'Registration was NOT successful',
+        status: 500,
+        data: req.body
+      })
+    }
     else res.json({
       type: 'POST',
       message: 'Registration was successful',
