@@ -10,4 +10,8 @@ public class photoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
     }
+
+    private void dispatchTakePictureIntent(){
+        
+    }
 }

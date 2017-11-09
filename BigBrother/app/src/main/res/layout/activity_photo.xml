@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.raphael.bigbrother.photoActivity">
 
+    <Button
+        android:id="@+id/picSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>
