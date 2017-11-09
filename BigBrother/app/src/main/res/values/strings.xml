@@ -4,4 +4,9 @@
     <string name="password">password</string>
     <string name="buttonLogin">Submit</string>
     <string name="takePic">Take Picture</string>
+    <string name="mapViewButton">Map View</string>
+    <string name="taskListView">Task List View</string>
+    <string name="signOutButton">Sign Out</string>
+    <string name="closkinOut">Clock In / Out</string>
+    <string name="textViewWelcomeHome">Welcome User</string>
 </resources>
