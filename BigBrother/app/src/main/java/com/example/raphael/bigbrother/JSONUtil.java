@@ -5,4 +5,12 @@ package com.example.raphael.bigbrother;
  */
 
 public class JSONUtil {
+
+    public void collectJSON(){
+
+    }
+
+    public void receiveJSON(){
+
+    }
 }

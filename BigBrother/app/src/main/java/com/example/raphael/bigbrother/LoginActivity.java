@@ -18,5 +18,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, photoActivity.class);
         startActivity(intent);
+
+        //todo set up sign in if statement
     }
 }
