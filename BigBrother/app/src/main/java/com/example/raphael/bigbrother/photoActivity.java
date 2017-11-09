@@ -50,4 +50,10 @@ public class photoActivity extends AppCompatActivity {
             mimageView.setImageBitmap(imageBitmap);
         }
     }
+
+    public void sendpicJSON(View view){
+        System.out.println("Sending picture");
+
+        Intent intent = new Intent(this, HomeActivity.class);
+    }
 }
