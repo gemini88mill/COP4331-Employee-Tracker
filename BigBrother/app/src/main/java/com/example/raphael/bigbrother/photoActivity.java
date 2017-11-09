@@ -12,11 +12,20 @@ import android.widget.ImageView;
 import static com.example.raphael.bigbrother.R.id.image;
 import static com.example.raphael.bigbrother.R.id.pictureCapture;
 
+/**
+ * Photo Activity Class - Everything from the photo Activity goes here.
+ */
 public class photoActivity extends AppCompatActivity {
 
+    //globals
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView mimageView;
 
+    /**
+     * onCreate - method to invoke the creation of the new activity
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +55,7 @@ public class photoActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
+            assert extras != null;
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             mimageView.setImageBitmap(imageBitmap);
         }
@@ -55,5 +65,6 @@ public class photoActivity extends AppCompatActivity {
         System.out.println("Sending picture");
 
         Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 }
