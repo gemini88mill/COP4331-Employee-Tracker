@@ -3,4 +3,5 @@
     <string name="username">username</string>
     <string name="password">password</string>
     <string name="buttonLogin">Submit</string>
+    <string name="takePic">Take Picture</string>
 </resources>

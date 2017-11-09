@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
-        android:text="Button"
+        android:text="@string/buttonLogin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -29,4 +29,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/alert_light_frame" />
+
+    <Button
+        android:id="@+id/pictureCapture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:text="@string/takePic"
+        app:layout_constraintBaseline_toBaselineOf="@+id/picSubmit"
+        app:layout_constraintRight_toLeftOf="@+id/picSubmit" />
 </android.support.constraint.ConstraintLayout>
