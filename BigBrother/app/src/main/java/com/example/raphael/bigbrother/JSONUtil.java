@@ -36,11 +36,23 @@ public class JSONUtil {
     //possible datatypes
     private List<Pair<String, String>> users;
 
+    /**
+     * Constructor for login activity
+     * @param username String
+     * @param password String
+     */
     public JSONUtil(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
+    /**
+     * Constructor for sign up activity
+     * @param username String
+     * @param password String
+     * @param userFirstName String
+     * @param userLastName String
+     */
     public JSONUtil(String username, String password, String userFirstName, String userLastName) {
         this.username = username;
         this.password = password;
@@ -48,11 +60,22 @@ public class JSONUtil {
         this.userLastName = userLastName;
     }
 
+    /**
+     * Constructor for Maps location
+     * @param username String
+     * @param userLocation Coordinates
+     */
     public JSONUtil(String username, Coordinates userLocation) {
         this.username = username;
         this.userLocation = userLocation;
     }
 
+    /**
+     * Constructor for task map and list
+     * @param userTaskLocation List
+     * @param taskName String
+     * @param taskDescription String
+     */
     public JSONUtil(List<Coordinates> userTaskLocation, String taskName, String taskDescription) {
         this.userTaskLocation = userTaskLocation;
         this.taskName = taskName;
