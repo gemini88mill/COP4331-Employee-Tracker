@@ -60,4 +60,4 @@ typings/
 .env
 
 # Ignore uploaded images
-public/img/uploads
+/public/img/uploads
