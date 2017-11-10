@@ -22,6 +22,14 @@ let userCtrls = {
 
   login: function($scope, $http, $routeParams) {
     console.log('Loaded login controller')
+    $http.post('/api/user/login', $scope.formData)
+      .then( (res) => {
+        // Success
+        console.log(res)
+      }, (res) => {
+        // Error/fail
+        console.log(res)
+      })
   },
 
   view: function($scope, $http, $routeParams) {

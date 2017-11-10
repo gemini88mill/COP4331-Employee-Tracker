@@ -3,37 +3,23 @@ const router   = require('express').Router(),
       passport = require('passport'),
       Employee = require('../../../models/employee.js')
 
-// Registration
+// Registration - PLACEHOLDER for passport
 router.post('/', (req, res) => {
   'use strict'
   let data = {
-    username: req.body.email,
-    password: req.body.password,
     firstName: req.body.firstName,
-    lastName: req.body.lastName
+    lastName: req.body.lastName,
+    username: req.body.username,
+    password: req.body.password,
+    picture: req.body.picture,
+    location: req.body.location
   }
 
-  let entry = new Employee(data)
-  entry.username = 'testname'
-  console.log(entry);
-  entry.save(function(err) {
+  Employee.create(data, (err, employee) => {
     if (err) {
-      console.log(err)
-      res.json({
-        type: 'POST',
-        message: 'Registration was NOT successful',
-        status: 500,
-        data: req.body
-      })
-    }
-    else res.json({
-      type: 'POST',
-      message: 'Registration was successful',
-      status: 200,
-      data: req.body
-    })
+      res.status(500).json({ message: 'Registration was NOT successful' })
+    } else res.status(200).json({ message: 'Registration was successful' })
   })
-
 })
 
 module.exports = router
