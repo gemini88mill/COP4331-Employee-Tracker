@@ -4,6 +4,8 @@ package com.example.raphael.bigbrother;
  * Created by raphael on 11/6/17.
  */
 
+import android.util.Pair;
+
 import com.google.gson.*;
 
 import java.util.List;
@@ -30,6 +32,9 @@ public class JSONUtil {
     private List<Coordinates> userTaskLocation;
     private String taskName;
     private String taskDescription;
+
+    //possible datatypes
+    private List<Pair<String, String>> users;
 
     public JSONUtil(String username, String password) {
         this.username = username;
@@ -110,19 +115,18 @@ public class JSONUtil {
 
     public void buildJSON(JSONUtil info){
         Gson gson = new Gson();
-
-
+        gson.toJson(info);
     }
 
     public void sendJSON(){
-
+        //send to server
     }
 
     public void receiveJSON(){
-        
+        //receive from server
     }
 
     public void debugJson(){
-
+        //print statements
     }
 }
