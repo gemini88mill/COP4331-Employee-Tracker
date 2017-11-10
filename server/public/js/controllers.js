@@ -17,17 +17,29 @@ let userCtrls = {
 
 
 
-    var cities = "Orlando, USA";
+    var cities = "Indiana, USA";
     var geocoder= new google.maps.Geocoder();
 
      $scope.markers = [];
 
-     var createMarker = function (info){
-          var marker = new google.maps.Marker({
-              map: $scope.map,
-              position: new google.maps.LatLng(info.lat(), info.lng())
-          });
-     }
+    // Possible use this approach instead
+    // https://codepen.io/dylanvann/pen/yNWdxJ?editors=0110
+    // or
+    // this: https://codepen.io/kelvinw88/pen/myKWqQ !!!
+    var createMarker = function (info){
+      let image = '../img/uploads/lknope.png'
+      let icon = {
+        url: image,
+        scaledSize: new google.maps.Size(100, 100),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(50, 50)
+      }
+      var marker = new google.maps.Marker({
+        map: $scope.map,
+        icon: icon,
+        position: new google.maps.LatLng(info.lat(), info.lng())
+        });
+    }
 
      geocoder.geocode( { 'address': cities }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
