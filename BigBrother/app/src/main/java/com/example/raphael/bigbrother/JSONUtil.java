@@ -5,9 +5,7 @@ package com.example.raphael.bigbrother;
  */
 
 import android.util.Pair;
-
 import com.google.gson.*;
-
 import java.util.List;
 
 public class JSONUtil {
@@ -145,8 +143,9 @@ public class JSONUtil {
         //send to server
     }
 
-    public void receiveJSON(){
+    public void receiveJSON(Gson gson, String type){
         //receive from server
+        
     }
 
     public void debugJson(){
