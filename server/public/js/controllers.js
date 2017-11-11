@@ -5,10 +5,31 @@ function main($scope, $http, $routeParams) {
 let userCtrls = {
   register: function($scope, $http, $routeParams) {
     console.log('Loaded registration controller')
+
+    $scope.register = () => {
+      // Send POST request to register user
+      $http.post('/api/user/register', $scope.formData)
+        .then( (res) => {
+          // Success
+          console.log(res)
+        }, (res) => {
+          // Error/fail
+          console.log(res)
+        })
+    }
+
   },
 
   login: function($scope, $http, $routeParams) {
     console.log('Loaded login controller')
+    $http.post('/api/user/login', $scope.formData)
+      .then( (res) => {
+        // Success
+        console.log(res)
+      }, (res) => {
+        // Error/fail
+        console.log(res)
+      })
   },
 
   view: function($scope, $http, $routeParams) {

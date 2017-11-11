@@ -14,6 +14,7 @@ var bodyParser      = require("body-parser"),
 var app = express();
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
@@ -22,8 +23,7 @@ app.use(flash());
 // ------------------ //
 // -----MONGOOSE----- //
 // ------------------ //
-mongoose.connect("mongodb://localhost/employeetracker");
-// mongoose.createConnection("mongodb://localhost/employeetracker");
+mongoose.connect("mongodb://localhost/employeetracker", { useMongoClient: true });
 var Employee    = require("./models/employee");
 
 

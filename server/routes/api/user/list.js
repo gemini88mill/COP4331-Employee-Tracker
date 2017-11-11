@@ -1,18 +1,16 @@
 'use strict'
 const router   = require('express').Router(),
-      passport = require('passport')
+      passport = require('passport'),
+      Employee = require('../../../models/employee.js')
 
 // List all users
 router.get('/', (req, res) => {
   'use strict'
-
-  // TODO
-
-  // Dummy return value
-  return res.json({
-    type: 'GET',
-    message: 'list all users request',
-    receivedData: req.body
+  Employee.find(function(err, employees) {
+    if (err)
+      res.send(err)
+    else
+      return res.json(employees)
   })
 })
 
