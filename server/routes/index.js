@@ -4,6 +4,17 @@ const router   = require('express').Router(),
       passport = require('passport')
 
 
+router.use(function(req, res, next) {
+    // do logging
+    console.log({
+      type: req.method,
+      headers: req.headers,
+      data: req.body
+    })
+    next()
+})
+
+
 // API routes
 router.use('/api', require('./api'))
 
