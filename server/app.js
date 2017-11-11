@@ -8,6 +8,9 @@ var bodyParser      = require("body-parser"),
     passport        = require("passport"),
     flash           = require("connect-flash"),
     path            = require('path'),
+    multer          = require('multer'),
+    cors            = require('cors'),
+    fs              = require('fs'),
     express         = require("express");
 
 // app setup
@@ -18,7 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
-
+app.use(cors())
 
 // ------------------ //
 // -----MONGOOSE----- //

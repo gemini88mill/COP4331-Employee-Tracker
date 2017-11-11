@@ -6,6 +6,7 @@ router.use('/register', require('./register.js'))
 router.use('/login',    require('./login.js'))
 router.use('/profile',  require('./profile'))
 router.use('/clock',    require('./clock.js'))
+router.use('/upload',   require('./upload.js'))
 
 router.use('/',    require('./list.js'))
 
