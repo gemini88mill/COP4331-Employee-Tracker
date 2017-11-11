@@ -26,8 +26,7 @@ app.use(cors())
 // -----MONGOOSE----- //
 // ------------------ //
 mongoose.connect("mongodb://localhost/employeetracker", { useMongoClient: true });
-// mongoose.createConnection("mongodb://localhost/employeetracker");
-// var Employee    = require("./models/employee");
+var Employee    = require("./models/employee");
 
 
 // ------------------ //
