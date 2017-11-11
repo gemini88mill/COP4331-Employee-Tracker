@@ -19,11 +19,11 @@
           templateUrl: 'views/user/login',
           controller: 'loginCtrl'
         })
-        .when('/user/:id', {
+        .when('/user/:username', {
           templateUrl: 'views/user/profile',
           controller: 'userViewCtrl'
         })
-        .when('/user/edit/:id', {
+        .when('/user/edit/:username', {
           templateUrl: 'views/user/edit',
           controller: 'userEditCtrl'
         })

@@ -33,107 +33,129 @@ let userCtrls = {
   },
 
   view: function($scope, $http, $routeParams) {
-    $scope.id = $routeParams.id
-    $scope.username = 'lknope'
-    $scope.firstName = 'Leslie'
-    $scope.lastName = 'Knope'
-    $scope.position = 'Employee'
-    $scope.teams = ['Team 1', 'Team Ann Rocks']
     console.log('Loaded user profile controller.')
+    // Get user data
+    $http.post('/api/user/', {username: [$routeParams.username]})
+      .then( (res) => {
+        // TODO(timp): Depends on final structure of the Employee schema
+        //             This will change as it does.
+        // Success
+        $scope.username   = res.data[0].username
+        $scope.firstName  = res.data[0].firstName
+        $scope.lastName   = res.data[0].lastName
+        $scope.position   = res.data[0].privilege
+        $scope.tasks      = res.data[0].tasks
+        $scope.teams      = res.data[0].teams
+        $scope.picture    = res.data[0].picture
+        $scope.location   = res.data[0].locations
 
-    // Create a canvas
-    // Reference: https://codepen.io/kelvinw88/pen/myKWqQ
-    let imageObj = new Image,
+        // Create a canvas
+        // Reference: https://codepen.io/kelvinw88/pen/myKWqQ
+        let imageObj = new Image,
         canvas = document.createElement('canvas'),
         context = canvas.getContext('2d'),
-        src = '../img/uploads/lknope.png'
+        src = $scope.picture
 
-    const pinColor = '#9132FB'
+        const pinColor = '#9132FB'
 
-    canvas.setAttribute('height', 57)
-    canvas.setAttribute('width', 46)
-    imageObj.src = src
+        canvas.setAttribute('height', 57)
+        canvas.setAttribute('width', 46)
+        imageObj.src = src
 
-    imageObj.onload = () => {
-      // Draw the border
-      // <!-- Purcple Circle (marker) -->
-      context.beginPath()
-      context.arc(23, 23, 22, 0, 2 * Math.PI)
-      context.lineWidth = 1
-      context.strokeStyle = pinColor
-      context.stroke()
-      context.fillStyle = pinColor
-      context.fill()
-
-
-      // <!-- Bottom part of Marker  -->
-      context.beginPath();
-      context.lineWidth = 4
-      context.moveTo(7, 36)
-      context.lineTo(23, 55)
-      context.lineTo(39, 36)
-      context.lineWidth = 4
-      context.lineJoin = 'round'
-      context.strokeStyle = pinColor
-      context.stroke()
-      context.fillStyle = pinColor
-      context.fill()
-      context.closePath()
-
-    	// <!-- White Circle -->
-      context.beginPath()
-      context.arc(23, 23, 18, 0, 2 * Math.PI)
-      context.fillStyle = 'white'
-      context.fill()
+        imageObj.onload = () => {
+          // Draw the border
+          // <!-- Purcple Circle (marker) -->
+          context.beginPath()
+          context.arc(23, 23, 22, 0, 2 * Math.PI)
+          context.lineWidth = 1
+          context.strokeStyle = pinColor
+          context.stroke()
+          context.fillStyle = pinColor
+          context.fill()
 
 
-    	// <!-- Display Picture -->
-      context.save();
-      context.beginPath()
-      context.arc(23, 23, 16, 0, Math.PI * 2, true)
-      context.closePath()
-      context.clip()
+          // <!-- Bottom part of Marker  -->
+          context.beginPath();
+          context.lineWidth = 4
+          context.moveTo(7, 36)
+          context.lineTo(23, 55)
+          context.lineTo(39, 36)
+          context.lineWidth = 4
+          context.lineJoin = 'round'
+          context.strokeStyle = pinColor
+          context.stroke()
+          context.fillStyle = pinColor
+          context.fill()
+          context.closePath()
 
-      // <!-- Place Image -->
-      context.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height, 0, 0, 50, 50)
-      context.lineWidth = 1
-      context.strokeStyle = 'white'
-      context.stroke()
-      context.restore()
-    }
-      imageObj.src = src
+          // <!-- White Circle -->
+          context.beginPath()
+          context.arc(23, 23, 18, 0, 2 * Math.PI)
+          context.fillStyle = 'white'
+          context.fill()
 
-    var city = "Orlando, USA";
-    var geocoder= new google.maps.Geocoder();
 
-     $scope.markers = [];
+          // <!-- Display Picture -->
+          context.save();
+          context.beginPath()
+          context.arc(23, 23, 16, 0, Math.PI * 2, true)
+          context.closePath()
+          context.clip()
 
-    var createMarker = function (info) {
-      let image = '../img/uploads/lknope.png'
-      let icon = {
-        url: canvas.toDataURL()
-      }
-      var marker = new google.maps.Marker({
-        map: $scope.map,
-        icon: icon,
-        position: new google.maps.LatLng(info.lat(), info.lng())
-        });
-    }
+          // <!-- Place Image -->
+          context.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height, 0, 0, 50, 50)
+          context.lineWidth = 1
+          context.strokeStyle = 'white'
+          context.stroke()
+          context.restore()
+        }
+        imageObj.src = src
 
-     geocoder.geocode( { 'address': city }, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-          newAddress = results[0].geometry.location;
-          $scope.map.setCenter(newAddress);
-          createMarker(newAddress)
-      }
-     });
+        var geocoder= new google.maps.Geocoder();
 
-    $scope.mapOptions = {
-          zoom: 6,
+        $scope.markers = [];
+
+        var createMarker = function (info) {
+          let icon = { url: canvas.toDataURL() }
+          var marker = new google.maps.Marker({
+            map: $scope.map,
+            icon: icon,
+            position: new google.maps.LatLng(info.lat(), info.lng())
+          });
+        }
+
+        // Make sure the user has clocked in at least once
+        if (res.data[0].locations < 1) {
+          geocoder.geocode( { 'address': 'USA'  }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              newAddress = results[0].geometry.location;
+              $scope.map.setCenter(newAddress);
+            }
+          })
+        // Valid GPS coordinates were provided, so display and zoom in
+        } else {
+          geocoder.geocode( { 'location': { lat: $scope.location[0], lng: $scope.location[1] } }, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+              newAddress = results[0].geometry.location;
+              $scope.map.setCenter(newAddress);
+              $scope.map.setZoom(6)
+              createMarker(newAddress)
+            }
+          });
+        }
+
+        $scope.mapOptions = {
+          zoom: 4,
           mapTypeId: google.maps.MapTypeId.ROADMAP
-      }
+        }
 
-      $scope.map = new google.maps.Map(document.getElementById('map'), $scope.mapOptions);
+        $scope.map = new google.maps.Map(document.getElementById('map'), $scope.mapOptions);
+
+        console.log(res)
+      }, (res) => {
+        // Error/fail
+        console.log(res)
+      })
   }
 }
 

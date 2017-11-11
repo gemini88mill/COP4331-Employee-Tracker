@@ -9,7 +9,7 @@ router.put('/', (req, res) => {
   Employee.findOneAndUpdate(req.body.username, { clockStatus: req.body.clockStatus }, (err, user) => {
     if (err) {
       res.status(500).json({ message: 'Clock status NOT changed.' })
-    } else res.status(201).json({ message: 'Clock status changed to ' + req.body.clockStatus })
+    } else res.status(200).json({ message: 'Clock status changed to ' + req.body.clockStatus })
   })
 })
 

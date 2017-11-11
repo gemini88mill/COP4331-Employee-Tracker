@@ -5,14 +5,10 @@ const router   = require('express').Router(),
 // Log in
 router.get('/', (req, res) => {
   'use strict'
-
-  // TODO
-
-  // Dummy return value
-  return res.json({
-    type: 'GET',
-    message: 'employee profile request',
-    receivedData: req.body
+  Employee.findOne( { username: req.body.username } , (err, user) => {
+    if (err) return res.status(500).json(err)
+    else if (!user) return res.status(404).json(user)
+    else return res.json(user)
   })
 })
 

@@ -4,52 +4,73 @@ const router     = require('express').Router(),
       path       = require('path'),
       del        = require('del'),
       multer     = require('multer'),
-      fs         = require('fs')
+      fs         = require('fs'),
+      Employee   = require('../../../models/employee.js')
+
 
 router.post('/', (req, res) => {
   'use strict'
-  let imageFilter = function (req, file, cb) {
+
+  let dir = path.join('public', 'img', 'uploads', req.headers.username)
+
+  // Utility functions
+  // Filter
+  let fileFilter = (req, file, cb) => {
     // accept image only
     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-      return cb(new Error('Only image files are allowed!'), false)
+      req.fileValidationError = 'Invalid file type. Acceptable file types: jpg, jpeg, png, gif'
+      return cb(new Error('Only image files are allowed!'))
     }
     cb(null, true)
   }
 
-  let cleanFolder = function (folderPath) {
+  // Clean up
+  let cleanFolder = (folderPath) => {
     // delete files inside folder but not the folder itself
     del.sync([`${folderPath}/**`, `!${folderPath}`])
   }
 
-  // TODO(timp): replace the final string in the directory with the
-  // unique username of the user so that the name of the image can be
-  // randomized. After that, make sure to find the user in the database and
-  // update the url for their profile image
-  let dir = path.join('public', 'img', 'uploads', '')
-  // Make directory if it doesn't exist
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir)
+  // Storage
   let storage = multer.diskStorage({
     destination: function(req, file, cb) {
       cb(null, dir)
     },
     filename: function(req, file, cb) {
-      cb(null, file.originalname + '')
+      let fileExtension = file.mimetype.match(/\/(.*?)$/)[1]
+      cb(null, (new Date).getTime() + '.'  + fileExtension)
     }
   })
 
-  let upload = multer({
+  let opts = {
     dest: dir,
     storage: storage,
-    fileFilter: imageFilter,
+    fileFilter: fileFilter,
     cleanFolder: cleanFolder
-  }).single('file')
-  upload(req, res, function (err) {
+  }
+
+  // Transfer file
+  let upload = multer(opts).single('file')
+
+  // Make directory if it doesn't exist
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir)
+
+  // Upload
+  upload(req, res, (err) => {
+    // An error occurred when uploading
     if (err) {
-      // An error occurred when uploading
-      return res.status(500).json({ message: 'File could not be uploaded.', error: err })
+      // Not an image
+      if (req.fileValidationError) {
+        return res.status(400).json({ message: req.fileValidationError })
+      } else return res.status(500).json({ message: 'File could not be uploaded.', error: err })
     }
-    res.status(200).json({ message: 'File was uploaded successfully.' })
-    // Everything went fine
+    // Otherwise, upload was succesful, so update database url to reflect most recent photo
+    // Update database
+    let url = req.file.path.split(/\/(.+)/)[1]
+    Employee.findOneAndUpdate( { username: req.headers.username }, { picture: url }, (err, user) => {
+      if (err) {
+        res.status(500).json({ message: 'Picture location could not be updated.' })
+      } else res.status(200).json({ message: 'File was uploaded successfully.', user: user})
+    })
   })
 })
 module.exports = router
