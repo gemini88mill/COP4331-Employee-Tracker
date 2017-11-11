@@ -117,4 +117,4 @@ freeline/
 freeline_project_description.json
 
 # Ignore uploaded images
-/public/img/uploads
+public/img/uploads
