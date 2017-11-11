@@ -6,19 +6,10 @@ const router   = require('express').Router(),
 // Registration - PLACEHOLDER for passport
 router.post('/', (req, res) => {
   'use strict'
-  let data = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    username: req.body.username,
-    password: req.body.password,
-    picture: req.body.picture,
-    location: req.body.location
-  }
-
-  Employee.create(data, (err, employee) => {
+  Employee.create(req.body, (err, user) => {
     if (err) {
       res.status(500).json({ message: 'Registration was NOT successful' })
-    } else res.status(200).json({ message: 'Registration was successful' })
+    } else res.status(201).json({ message: 'Registration was successful' })
   })
 })
 

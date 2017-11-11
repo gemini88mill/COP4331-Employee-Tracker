@@ -1,18 +1,15 @@
 'use strict'
 const router   = require('express').Router(),
-      passport = require('passport')
+      passport = require('passport'),
+      Employee = require('../../../models/employee.js')
 
 // Clock in/out
-router.post('/', (req, res) => {
+router.put('/', (req, res) => {
   'use strict'
-  
-  // TODO
-
-  // Dummy return value
-  return res.json({
-    type: 'POST',
-    message: 'Clock in/out request',
-    receivedData: req.body
+  Employee.findOneAndUpdate(req.body.username, { clockStatus: req.body.clockStatus }, (err, user) => {
+    if (err) {
+      res.status(500).json({ message: 'Clock status NOT changed.' })
+    } else res.status(201).json({ message: 'Clock status changed to ' + req.body.clockStatus })
   })
 })
 
