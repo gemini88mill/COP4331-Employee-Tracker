@@ -110,7 +110,13 @@ let userCtrls = {
 
           // <!-- Place Image -->
           let smallerBoundary = Math.min(imageObj.width, imageObj.height)
-          context.drawImage(imageObj, 0, 0, smallerBoundary, smallerBoundary, 0, 0, 50, 50)
+          let startx = 0,
+              starty = 0
+          if (imageObj.width > imageObj.height)
+            startx = (imageObj.width - smallerBoundary) / 2 // Centers the focus of a horizontally wide picture
+          if (imageObj.width < imageObj.height)
+            starty = (imageObj.height - smallerBoundary) / 2 // Center the focus of a vertically long picture
+          context.drawImage(imageObj, startx, starty, smallerBoundary, smallerBoundary, 0, 0, 50, 50)
           context.lineWidth = 1
           context.strokeStyle = 'white'
           context.stroke()
