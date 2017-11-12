@@ -37,7 +37,7 @@ let userCtrls = {
     // Get user data
     $http.post('/api/user/', {username: [$routeParams.username]})
       .then( (res) => {
-        // TODO(timp): Depends on final structure of the Employee schema
+        // NOTE(timp): Depends on final structure of the Employee schema
         //             This will change as it does.
         // Success
         $scope.username   = res.data[0].username
@@ -48,7 +48,12 @@ let userCtrls = {
         $scope.teams      = res.data[0].teams
         $scope.picture    = res.data[0].picture || 'img/user_profile_placeholder.png' // Placeholder image in case the use has yet to check in
 
-        $scope.location   = res.data[0].locations
+
+        console.log(res.data[0]);
+        if (res.data[0].locations.length > 0)
+          $scope.location   = res.data[0].locations[0].coordinates
+        else
+          $scope.location   = res.data[0].locations
 
         // Create a canvas
         // Reference: https://codepen.io/kelvinw88/pen/myKWqQ
@@ -156,6 +161,18 @@ let userCtrls = {
       }, (res) => {
         // Error/fail
         console.log(res)
+      })
+  },
+
+  list: function($scope, $http, $routeParams) {
+    console.log('Loaded user list controller')
+    $http.post('/api/user', { "username": [] })
+      .then( (res) => {
+        // Success
+        $scope.users = res.data
+        console.log($scope.users)
+      }, (res) => {
+        // Error/fail
       })
   }
 }
