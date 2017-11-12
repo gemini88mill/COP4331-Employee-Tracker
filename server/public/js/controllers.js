@@ -109,7 +109,8 @@ let userCtrls = {
           context.clip()
 
           // <!-- Place Image -->
-          context.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height, 0, 0, 50, 50)
+          let smallerBoundary = Math.min(imageObj.width, imageObj.height)
+          context.drawImage(imageObj, 0, 0, smallerBoundary, smallerBoundary, 0, 0, 50, 50)
           context.lineWidth = 1
           context.strokeStyle = 'white'
           context.stroke()
