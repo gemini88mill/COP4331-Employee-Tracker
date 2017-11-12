@@ -2,7 +2,9 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.container {
+.profile-image-container {
+  border-radius: 2px;
+  background-size: cover;
 }
 
 
@@ -15,4 +17,8 @@ body {
 
 .badge {
   line-height: inherit;
+}
+
+.profile-image {
+  border-radius: 2px;
 }

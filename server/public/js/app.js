@@ -27,6 +27,10 @@
           templateUrl: 'views/user/edit',
           controller: 'userEditCtrl'
         })
+        .when('/users', {
+          templateUrl: 'views/user/list',
+          controller: 'userListCtrl'
+        })
 
         .when('/tasks/', {
           templateUrl: 'views/task/list',
@@ -62,6 +66,7 @@
     .controller('registerCtrl', userCtrls.register)
     .controller('loginCtrl', userCtrls.login)
     .controller('userViewCtrl', userCtrls.view)
+    .controller('userListCtrl', userCtrls.list)
     .controller('userEditCtrl', userCtrls.edit)
     .controller('taskListCtrl', taskCtrls.list)
     .controller('taskCreateCtrl', taskCtrls.create)
