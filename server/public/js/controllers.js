@@ -46,7 +46,8 @@ let userCtrls = {
         $scope.position   = res.data[0].privilege
         $scope.tasks      = res.data[0].tasks
         $scope.teams      = res.data[0].teams
-        $scope.picture    = res.data[0].picture
+        $scope.picture    = res.data[0].picture || 'img/user_profile_placeholder.png' // Placeholder image in case the use has yet to check in
+
         $scope.location   = res.data[0].locations
 
         // Create a canvas
