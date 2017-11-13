@@ -1,0 +1,281 @@
+{
+	"variables": [],
+	"info": {
+		"name": "COP4331",
+		"_postman_id": "8be53645-3702-832e-808a-0d7973a8532d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"description": "",
+			"item": [
+				{
+					"name": "Profile",
+					"description": "",
+					"item": [
+						{
+							"name": "Get Employee Profile",
+							"request": {
+								"url": "http://localhost:3000/api/user/",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Get Administrator Profile",
+							"request": {
+								"url": "",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Edit Profile",
+							"request": {
+								"url": "",
+								"method": "PUT",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Registration",
+					"request": {
+						"url": "http://localhost:3000/api/user/register",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstName\": \"Leslie\",\n\t\"lastName\": \"Knope\",\n\t\"username\": \"lknope\",\n\t\"password\": \"pawneerocks\"\n}"
+						},
+						"description": "Creates user account.\n\n201: Success\n\n500: Error"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"url": "http://localhost:3000/api/user/login",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"lknope\",\n\t\"password\": \"pawneerocks\"\n}"
+						},
+						"description": "Verify that user exists and credentials match.\n\n500: Error\n\n404: User does not exist or password is incorrect\n\n200: Success"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Employee(s)",
+					"request": {
+						"url": "http://localhost:3000/api/user/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": [\n    \"lknope\",\n    \"bwyatt\"\n  ]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Clock In/Out",
+					"request": {
+						"url": "http://localhost:3000/api/user/clock",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"bwyatt\",\n  \"clockStatus\": true,\n  \"location\": {\n  \t\"lat\": 38.93,\n  \t\"lng\": -77.0608\n  }\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Photo",
+					"request": {
+						"url": "http://localhost:3000/api/user/upload",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"description": "",
+								"disabled": true
+							},
+							{
+								"key": "username",
+								"value": "lknope",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "",
+									"type": "file",
+									"src": "knope.png"
+								}
+							]
+						},
+						"description": "Updates the most recent photo taken of the employee. At the moment, the username has to be passed as a header, \"username\"."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Task",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List Tasks",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Task",
+					"request": {
+						"url": "",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Task",
+					"request": {
+						"url": "",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"url": "",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Team",
+			"description": "",
+			"item": [
+				{
+					"name": "Create Team",
+					"request": {
+						"url": "",
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "List Teams",
+					"request": {
+						"url": "",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Assign User to Team",
+					"request": {
+						"url": "",
+						"method": "POST",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Team",
+					"request": {
+						"url": "",
+						"method": "PUT",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

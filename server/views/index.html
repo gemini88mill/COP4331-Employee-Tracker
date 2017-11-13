@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/stylesheets/main.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <base href="/">
+
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,13 +28,16 @@
           <li class="nav-item">
             <a class="nav-link" href="/login">Log in</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users">Users</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Tasks
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/task/create">Create new task</a>
-              <a class="dropdown-item" href="/task/edit/234987234">Edit task</a>
+              <a class="dropdown-item" href="/task/edit/lknope">Edit task</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/tasks/">View all tasks</a>
             </div>
@@ -44,7 +48,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/team/create">Create team</a>
-              <a class="dropdown-item" href="/team/edit/23982">Edit team</a>
+              <a class="dropdown-item" href="/team/edit/lknope">Edit team</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="/teams/">View all teams</a>
             </div>
@@ -63,6 +67,8 @@
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-resource/1.6.4/angular-resource.js" charset="utf-8"></script>
+  <script id="gmapsapi" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMmizdLgDclC7u-cqYFP1pD12hq6rpFLA"
+  async defer></script>
   <script src="js/controllers.js" charset="utf-8"></script>
   <script src="js/directives.js" charset="utf-8"></script>
   <script src="js/filters.js" charset="utf-8"></script>

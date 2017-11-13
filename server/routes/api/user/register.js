@@ -1,18 +1,15 @@
 'use strict'
 const router   = require('express').Router(),
-      passport = require('passport')
+      passport = require('passport'),
+      Employee = require('../../../models/employee.js')
 
-// Registration
+// Registration - PLACEHOLDER for passport
 router.post('/', (req, res) => {
   'use strict'
-
-  // TODO
-
-  // Dummy return value
-  return res.json({
-    type: 'POST',
-    message: 'Registration request',
-    receivedData: req.body
+  Employee.create(req.body, (err, user) => {
+    if (err) {
+      res.status(500).json({ message: 'Registration was NOT successful' })
+    } else res.status(201).json({ message: 'Registration was successful' })
   })
 })
 
