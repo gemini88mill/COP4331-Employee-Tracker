@@ -16,8 +16,8 @@ let uploadService = (req, res) => {
     // Filter
     let fileFilter = (req, file, cb) => {
       // accept image only
-      if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-        req.fileValidationError = 'Invalid file type. Acceptable file types: jpg, jpeg, png, gif'
+      if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+        req.fileValidationError = 'Invalid file type. Acceptable file types: jpg, jpeg, png'
         return cb(new Error('Only image files are allowed!'))
       }
       cb(null, true)
@@ -51,6 +51,8 @@ let uploadService = (req, res) => {
     let upload = multer(opts).single('file')
 
     // Make directory if it doesn't exist
+    let uploadDir = path.join('public', 'img', 'uploads')
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir)
     if (!fs.existsSync(dir)) fs.mkdirSync(dir)
 
     // Upload
