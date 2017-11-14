@@ -10,16 +10,29 @@ import java.util.List;
 
 public class JSONUtil {
 
+    /**
+     * Coordinates Class
+     *
+     * private class that allows for a packaged latitude, longitude set.
+     */
     private class Coordinates{
+
+        //private primitives
         private double latitude;
         private double longitude;
 
+        /**
+         * Constructor
+         * @param latitude double
+         * @param longitude double
+         */
         public Coordinates(double latitude, double longitude) {
             this.latitude = latitude;
             this.longitude = longitude;
         }
     }
 
+    //primitives
     private String username;
     private String password; //should be hashed***
     private String userFirstName;
