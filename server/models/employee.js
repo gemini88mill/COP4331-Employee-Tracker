@@ -27,7 +27,7 @@ var employeeSchema = new mongoose.Schema( {
         validate: [arrayLimit, '{PATH} exceeds the limit of 5']
     },
     timeLastUpdate: Date, // time of last GPS update
-    
+    indexOfLastTime: { type: Number, default: 0 }
 });
 
 function arrayLimit(val) { // location array cannot exceed size 5

@@ -1,9 +1,11 @@
 'use strict'
 const router   = require('express').Router(),
-      passport = require('passport')
+      passport = require('passport'),
+      middleware = require("../../../middleware"),
+      Employee   = require("../../../../models/employee")
 
 // Log in
-router.get('/', (req, res) => {
+router.get('/', middleware.isAdministrator, (req, res) => {
   'use strict'
   Employee.findOne( { username: req.body.username } , (err, user) => {
     if (err) return res.status(500).json(err)

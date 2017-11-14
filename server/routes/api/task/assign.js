@@ -1,9 +1,10 @@
 'use strict'
 const router   = require('express').Router(),
-      passport = require('passport')
+      passport = require('passport'),
+      middleware = require("../../middleware")
 
 // Assign task
-router.post('/', (req, res) => {
+router.post('/', middleware.isAdministrator, (req, res) => {
   'use strict'
 
   // TODO

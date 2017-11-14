@@ -1,9 +1,10 @@
 'use strict'
 const router   = require('express').Router(),
-      passport = require('passport')
+      passport = require('passport'),
+      middleware = require("../../../middleware")
 
 // Log in
-router.get('/', (req, res) => {
+router.get('/', middleware.isAdministrator, (req, res) => {
   'use strict'
 
   // TODO

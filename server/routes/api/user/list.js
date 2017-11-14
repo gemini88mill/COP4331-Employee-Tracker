@@ -1,9 +1,10 @@
 'use strict'
 const router   = require('express').Router(),
       passport = require('passport'),
-      Employee = require('../../../models/employee.js')
+      Employee = require('../../../models/employee.js'),
+      middleware = require("../../middleware")
 
-router.post('/', (req, res) => {
+router.post('/', middleware.isAdministrator, (req, res) => {
   'use strict'
   let query
   console.log(req.body);
