@@ -132,6 +132,7 @@ let userCtrls = {
           let icon = { url: canvas.toDataURL() }
           var marker = new google.maps.Marker({
             map: $scope.map,
+            title: $scope.username,
             icon: icon,
             position: new google.maps.LatLng(info.lat(), info.lng())
           });
