@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         //for debug
-        System.out.println("Values Collected: " + usernameTextField + " " + passwordTextField);
+        System.out.println("Values Collected: " + username + " " + password);
 
 
         Intent intent = new Intent(this, photoActivity.class);
