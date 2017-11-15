@@ -6,6 +6,13 @@ package com.example.raphael.bigbrother;
 
 import android.util.Pair;
 import com.google.gson.*;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class JSONUtil {
@@ -46,6 +53,13 @@ public class JSONUtil {
 
     //possible datatypes
     private List<Pair<String, String>> users;
+
+    //URL variables and constants
+    private static final String USER_AGENT = "Mozilla/5.0";
+    private static final String URL_DEST = "";
+
+    //Gson global
+    private Gson gson;
 
     /**
      * Constructor for login activity
@@ -94,12 +108,26 @@ public class JSONUtil {
     }
 
     public void buildJSON(JSONUtil info){
-        Gson gson = new Gson();
+        gson = new Gson();
         gson.toJson(info);
     }
 
-    public void sendJSON(){
+    public void sendJSON() throws IOException {
         //send to server
+
+        URL url = new URL(URL_DEST);
+
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+        connection.setRequestProperty("User-Agent", USER_AGENT);
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestMethod("POST");
+
+        connection.setDoOutput(true);
+
+        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(connection.getOutputStream());
+        outputStreamWriter.write(gson.toString());
     }
 
     public void receiveJSON(Gson gson, String type){
