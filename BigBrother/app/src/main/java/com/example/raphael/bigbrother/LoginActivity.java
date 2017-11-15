@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void sendJSONRequest(View view){
-        //System.out.println("Sending JSON...");
+        System.out.println("Sending JSON...");
 
         //get EditText Values
         EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
