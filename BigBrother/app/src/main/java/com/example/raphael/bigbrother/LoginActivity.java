@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         System.out.println("Values Collected: " + username + " " + password);
 
 
-        Intent intent = new Intent(this, photoActivity.class);
+        Intent intent = new Intent(this, PhotoActivity.class);
         startActivity(intent);
 
         //todo set up sign in if statement

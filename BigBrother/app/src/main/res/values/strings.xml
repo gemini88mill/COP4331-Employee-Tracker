@@ -10,4 +10,9 @@
     <string name="clockInOut">Clock In / Out</string>
     <string name="textViewWelcomeHome">Welcome User</string>
     <string name="mapInfo">Map information</string>
+    <string name="nameLabel">Name</string>
+    <string name="workGroupLabel">Work Group</string>
+    <string name="confirmPassLabel">Confirm</string>
+    <string name="nameTextArea">Name</string>
+    <string name="signInLabel">Sign Up</string>
 </resources>
