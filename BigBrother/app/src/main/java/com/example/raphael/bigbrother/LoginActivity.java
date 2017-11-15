@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import java.io.IOException;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -20,6 +22,17 @@ public class LoginActivity extends AppCompatActivity {
         //get EditText Values
         EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
         EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
+
+        String username = usernameTextField.getText().toString().trim();
+        String password = passwordTextField.getText().toString().trim();
+
+        JSONUtil loginJSON = new JSONUtil(username, password);
+        loginJSON.buildJSON(loginJSON);
+        try {
+            loginJSON.sendJSON();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //for debug
         System.out.println("Values Collected: " + usernameTextField + " " + passwordTextField);
