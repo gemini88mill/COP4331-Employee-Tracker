@@ -30,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
         loginJSON.buildJSON(loginJSON);
         try {
             loginJSON.sendJSON();
+
+            //todo set up get response
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,10 +39,9 @@ public class LoginActivity extends AppCompatActivity {
         //for debug
         System.out.println("Values Collected: " + username + " " + password);
 
-
+        //if system verifies that user exists
         Intent intent = new Intent(this, PhotoActivity.class);
         startActivity(intent);
 
-        //todo set up sign in if statement
     }
 }

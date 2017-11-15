@@ -21,7 +21,7 @@ public class SignUpActivity extends AppCompatActivity {
         EditText passwordField = (EditText) findViewById(R.id.passwordField);
         EditText workGroupField = (EditText) findViewById(R.id.workGroup);
 
-        
+
 
         //starts the photo activity
         Intent intent = new Intent(this, PhotoActivity.class);

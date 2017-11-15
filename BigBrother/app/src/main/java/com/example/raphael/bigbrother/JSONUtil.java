@@ -56,7 +56,7 @@ public class JSONUtil {
 
     //URL variables and constants
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String URL_DEST = "";
+    private static final String URL_DEST = "192.168.86.39:3000/api/user";
 
     //Gson global
     private Gson gson;
