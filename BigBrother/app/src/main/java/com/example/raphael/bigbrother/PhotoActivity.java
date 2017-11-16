@@ -15,7 +15,7 @@ import static com.example.raphael.bigbrother.R.id.pictureCapture;
 /**
  * Photo Activity Class - Everything from the photo Activity goes here.
  */
-public class photoActivity extends AppCompatActivity {
+public class PhotoActivity extends AppCompatActivity {
 
     //globals
     static final int REQUEST_IMAGE_CAPTURE = 1;

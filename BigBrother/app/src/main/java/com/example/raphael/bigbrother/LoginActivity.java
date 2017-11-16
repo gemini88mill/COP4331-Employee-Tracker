@@ -28,19 +28,18 @@ public class LoginActivity extends AppCompatActivity {
 
         JSONUtil loginJSON = new JSONUtil(username, password);
         loginJSON.buildJSON(loginJSON);
-        try {
-            loginJSON.sendJSON();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        String response = loginJSON.sendJSON();
+
+            //todo set up get response
+
 
         //for debug
-        System.out.println("Values Collected: " + username + " " + password);
+        System.out.println("Values Collected: " + username + " " + password + response);
 
-
-        Intent intent = new Intent(this, photoActivity.class);
+        //if system verifies that user exists
+        Intent intent = new Intent(this, PhotoActivity.class);
         startActivity(intent);
 
-        //todo set up sign in if statement
     }
 }
