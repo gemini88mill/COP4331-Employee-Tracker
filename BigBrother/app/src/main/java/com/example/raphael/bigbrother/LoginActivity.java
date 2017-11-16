@@ -28,16 +28,14 @@ public class LoginActivity extends AppCompatActivity {
 
         JSONUtil loginJSON = new JSONUtil(username, password);
         loginJSON.buildJSON(loginJSON);
-        try {
-            loginJSON.sendJSON();
+
+        String response = loginJSON.sendJSON();
 
             //todo set up get response
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         //for debug
-        System.out.println("Values Collected: " + username + " " + password);
+        System.out.println("Values Collected: " + username + " " + password + response);
 
         //if system verifies that user exists
         Intent intent = new Intent(this, PhotoActivity.class);

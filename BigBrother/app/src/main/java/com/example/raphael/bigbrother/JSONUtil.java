@@ -4,18 +4,27 @@ package com.example.raphael.bigbrother;
  * Created by raphael on 11/6/17.
  */
 
+import android.os.AsyncTask;
 import android.util.Pair;
 import com.google.gson.*;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
-public class JSONUtil {
+import javax.net.ssl.HttpsURLConnection;
+
+public class JSONUtil{
 
     /**
      * Coordinates Class
@@ -56,7 +65,7 @@ public class JSONUtil {
 
     //URL variables and constants
     private static final String USER_AGENT = "Mozilla/5.0";
-    private static final String URL_DEST = "192.168.86.39:3000/api/user";
+    private static final String URL_DEST = "http://192.168.86.39:3000/api/user";
 
     //Gson global
     private Gson gson;
@@ -112,22 +121,51 @@ public class JSONUtil {
         gson.toJson(info);
     }
 
-    public void sendJSON() throws IOException {
+    public String sendJSON() {
         //send to server
+        URL url;
+        String response = "";
+        try {
+            url = new URL(URL_DEST);
 
-        URL url = new URL(URL_DEST);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(15000);
+            conn.setConnectTimeout(15000);
+            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
 
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        connection.setRequestProperty("User-Agent", USER_AGENT);
-        connection.setRequestProperty("Content-Type", "application/json");
-        connection.setRequestProperty("Accept", "application/json");
-        connection.setRequestMethod("POST");
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write("hello");
 
-        connection.setDoOutput(true);
+            writer.flush();
+            writer.close();
+            os.close();
+            int responseCode=conn.getResponseCode();
 
-        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(connection.getOutputStream());
-        outputStreamWriter.write(gson.toString());
+            System.out.println(responseCode);
+
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+                String line;
+                BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                while ((line=br.readLine()) != null) {
+                    response+=line;
+                }
+            }
+            else {
+                response="";
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+
+
     }
 
     public void receiveJSON(Gson gson, String type){
