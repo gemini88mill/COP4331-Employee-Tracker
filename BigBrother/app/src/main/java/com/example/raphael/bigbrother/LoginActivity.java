@@ -1,5 +1,6 @@
 package com.example.raphael.bigbrother;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,9 +22,12 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private boolean loggedIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        loggedIn = false;
         setContentView(R.layout.activity_login);
     }
 
@@ -65,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // Successful login
                         System.out.println(response);
+                        loggedIn = true;
                     }
                 }, new Response.ErrorListener() {
 
@@ -75,7 +80,15 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }));
 
-
         System.out.println(mRequestQueue.getCache());
+
+        // Proceed to HomeActivity
+        // NOTE(timp): I changed this to the HomeActivity because someone
+        //             should be able to log in before clocking in.
+        // Improvised check -- probably needs a better way
+        if (loggedIn) {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        }
     }
 }
