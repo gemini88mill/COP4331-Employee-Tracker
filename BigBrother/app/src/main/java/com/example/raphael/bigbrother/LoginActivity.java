@@ -1,6 +1,5 @@
 package com.example.raphael.bigbrother;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,8 +19,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -31,11 +28,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void sendJSONRequest(View view) throws JSONException {
-        System.out.println("Called sendJSONRequest");
+        System.out.println("Sending JSON...");
 
         //get EditText Values
         EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
         EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
+
+        String username = usernameTextField.getText().toString().trim();
+        String password = passwordTextField.getText().toString().trim();
 
 
         RequestQueue mRequestQueue;
@@ -54,27 +54,23 @@ public class LoginActivity extends AppCompatActivity {
 
         String url ="http://192.168.86.39:3000/api/user/login/";
         JSONObject body = new JSONObject();
-        try {
-            body.put("username", usernameTextField.getText());
-            body.put("password", passwordTextField.getText());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        body.put("username", username);
+        body.put("password", password);
 
-        System.out.println(body);
         // Formulate the request and handle the response.
         mRequestQueue.add(new JsonObjectRequest
                 (Request.Method.POST, url, body, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        // Successful login
                         System.out.println(response);
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
+                        System.out.println(error);
 
                     }
                 }));
