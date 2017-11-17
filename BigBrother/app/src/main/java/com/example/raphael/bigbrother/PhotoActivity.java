@@ -32,6 +32,8 @@ public class PhotoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photo);
 
         Button photoButton = (Button) this.findViewById(R.id.pictureCapture);
+        mimageView = (ImageView)findViewById(R.id.imageView);
+
         photoButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
