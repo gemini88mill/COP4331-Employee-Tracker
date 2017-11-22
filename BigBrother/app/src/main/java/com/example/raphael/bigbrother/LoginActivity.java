@@ -34,25 +34,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void sendJSONRequest(View view) {
-        System.out.println("Called sendJSONRequest");
-
-        //get EditText Values
+        // Get EditText Values
         final EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
         EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
         String username = usernameTextField.getText().toString().trim();
         String password = passwordTextField.getText().toString().trim();
+
+        // Create body of JSON object to send to Web server
         JSONObject body = new JSONObject();
         try {
             body.put("username", username);
             body.put("password", password);
         } catch (JSONException e) {
-            // TODO: Failback if username or password cannot be used to create JSON Object
+            // TODO: Fallback if username or password cannot be used to create JSON Object
         }
 
-
+        // Create a request
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.POST, url, body, new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
                         // Successful login
@@ -67,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
+        // Make the request (add it to the request queue)
         ConnectionHandler.getInstance(this).addToRequestQueue(jsObjRequest);
     }
 
