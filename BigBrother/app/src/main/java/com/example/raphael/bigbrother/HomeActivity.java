@@ -28,7 +28,11 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void onClockInOutClick(View view){
-        //todo send JSON to clock in and out
+        // TODO send JSON to clock in and out
+        System.out.println("to photoView");
+
+        Intent intent = new Intent(this, PhotoActivity.class);
+        startActivity(intent);
     }
 
     public void onSignOutClick(View view){

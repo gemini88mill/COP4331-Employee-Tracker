@@ -4,22 +4,51 @@ package com.example.raphael.bigbrother;
  * Created by raphael on 11/6/17.
  */
 
+import android.os.AsyncTask;
 import android.util.Pair;
 import com.google.gson.*;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
-public class JSONUtil {
+import javax.net.ssl.HttpsURLConnection;
 
+public class JSONUtil{
+
+    /**
+     * Coordinates Class
+     *
+     * private class that allows for a packaged latitude, longitude set.
+     */
     private class Coordinates{
+
+        //private primitives
         private double latitude;
         private double longitude;
 
+        /**
+         * Constructor
+         * @param latitude double
+         * @param longitude double
+         */
         public Coordinates(double latitude, double longitude) {
             this.latitude = latitude;
             this.longitude = longitude;
         }
     }
 
+    //primitives
     private String username;
     private String password; //should be hashed***
     private String userFirstName;
@@ -33,6 +62,13 @@ public class JSONUtil {
 
     //possible datatypes
     private List<Pair<String, String>> users;
+
+    //URL variables and constants
+    private static final String USER_AGENT = "Mozilla/5.0";
+    private static final String URL_DEST = "http://192.168.86.39:3000/api/user";
+
+    //Gson global
+    private Gson gson;
 
     /**
      * Constructor for login activity
@@ -81,12 +117,55 @@ public class JSONUtil {
     }
 
     public void buildJSON(JSONUtil info){
-        Gson gson = new Gson();
+        gson = new Gson();
         gson.toJson(info);
     }
 
-    public void sendJSON(){
+    public String sendJSON() {
         //send to server
+        URL url;
+        String response = "";
+        try {
+            url = new URL(URL_DEST);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setReadTimeout(15000);
+            conn.setConnectTimeout(15000);
+            conn.setRequestMethod("GET");
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+
+            OutputStream os = conn.getOutputStream();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(os, "UTF-8"));
+            writer.write("hello");
+
+            writer.flush();
+            writer.close();
+            os.close();
+            int responseCode=conn.getResponseCode();
+
+            System.out.println(responseCode);
+
+            if (responseCode == HttpsURLConnection.HTTP_OK) {
+                String line;
+                BufferedReader br=new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                while ((line=br.readLine()) != null) {
+                    response+=line;
+                }
+            }
+            else {
+                response="";
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return response;
+
+
     }
 
     public void receiveJSON(Gson gson, String type){

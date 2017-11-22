@@ -15,7 +15,7 @@ import static com.example.raphael.bigbrother.R.id.pictureCapture;
 /**
  * Photo Activity Class - Everything from the photo Activity goes here.
  */
-public class photoActivity extends AppCompatActivity {
+public class PhotoActivity extends AppCompatActivity {
 
     //globals
     static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -32,6 +32,8 @@ public class photoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photo);
 
         Button photoButton = (Button) this.findViewById(R.id.pictureCapture);
+        mimageView = (ImageView)findViewById(R.id.imageView);
+
         photoButton.setOnClickListener(new View.OnClickListener(){
 
             @Override
