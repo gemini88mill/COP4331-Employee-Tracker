@@ -3,7 +3,7 @@ var mongoose                = require("mongoose"),
     passportLocalMongoose   = require("passport-local-mongoose");
 
 // used for base employee, admin, and support; things associated with employee are NOT required in the document
-var employeeSchema = new mongoose.Schema( {
+var userSchema = new mongoose.Schema( {
     
     firstName: { type: String, validate: /[A-Za-z-']/, required: true }, // name is A-Z, a-z, hyphens and apostrophes
     lastName: { type: String, validate: /[A-Za-z-']/, required: true },
@@ -21,8 +21,8 @@ var employeeSchema = new mongoose.Schema( {
     
     locations: {
         type: [{
-            type: { type: String }, // TODO: check that this is correct geocoordinate storage
-            coordinates: [Number]
+            lat: [Number],
+            long: [Number]
         }],
         validate: [arrayLimit, '{PATH} exceeds the limit of 5']
     },
@@ -35,6 +35,6 @@ function arrayLimit(val) { // location array cannot exceed size 5
 }
 
 // use mongoose for passport to store hashes instead of actual passwords
-employeeSchema.plugin(passportLocalMongoose);
+userSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model("Employee", employeeSchema);
+module.exports = mongoose.model("User", userSchema);

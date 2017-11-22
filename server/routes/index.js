@@ -1,53 +1,64 @@
 'use strict'
-const router   = require('express').Router(),
-      path     = require('path'),
-      passport = require('passport')
+var     router      = require('express').Router();
 
+// THESE PAGES DO NOT REQUIRE AUTHENTICATION MIDDLEWARE
 
+// for testing purposes
 router.use(function(req, res, next) {
     // do logging
-    console.log({
-      type: req.method,
-      headers: req.headers,
-      data: req.body
-    })
-    next()
-})
+    // console.log({
+    //   type: req.method,
+    //   headers: req.headers
+    // });
+    next();
+});
+
+router.use('/login',    require('./login.js'    ));
+router.use('/register', require('./register.js' ));
+router.use('/logout',   require('./logout.js'   ));
+
+// landing/main page route
+router.get("/", function(req, res) {
+    res.render("landing");
+});
 
 
-// API routes
-router.use('/api', require('./api'))
+// 404 routes
+router.get("*", function(req, res) {
+    res.json({
+        type: 'GET',
+        message: 'Unknown GET request made.',
+        receivedData: req.body
+    });
+    res.render("404");
+});
 
-// Index page
-router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'views', 'index.html'))
-})
 
+router.post("*", function(req, res) {
+    res.json({
+        type: 'POST',
+        message: 'Unknown POST request made.',
+        receivedData: req.body
+    });
+    res.render("404");
+});
 
-// Load partials
-// Base views
-router.get('/views/:name', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'views', req.params.name + '.html'))
-})
+router.put("*", function(req, res) {
+    res.json({
+        type: 'PUT',
+        message: 'Unknown PUT request made.',
+        receivedData: req.body
+    });
+    res.render("404");
+});
 
-// Load views - User-based
-router.get('/views/user/:action', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'views', 'user', req.params.action + '.html'))
-})
+router.delete("*", function(req, res) {
+    res.json({
+        type: 'DELETE',
+        message: 'Unknown DELETE request made.',
+        receivedData: req.body
+    });
+    res.render("404");
+});
 
-// Load views - Task-based
-router.get('/views/task/:action', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'views', 'task', req.params.action + '.html'))
-})
-
-// Load views - Team-based
-router.get('/views/team/:action', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'views', 'team', req.params.action + '.html'))
-})
-
-// Fallback - Route back to index
-router.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'views', 'index.html'))
-})
-
-module.exports = router
+module.exports = router;
