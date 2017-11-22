@@ -22,8 +22,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
 public class LoginActivity extends AppCompatActivity {
     private String url = "http://192.168.86.39:3000/api/user/login";
 
@@ -62,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         showHttpResponseError(error);
-
                     }
                 });
 
