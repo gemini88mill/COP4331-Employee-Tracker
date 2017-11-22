@@ -32,6 +32,9 @@ let userCtrls = {
       })
   },
 
+  // NOTE(timp): econsider using a placeholder image that's the same for everyone
+  // and use a generated image for each letter (first initial) of the user
+  // and make sure that it is capitalized
   view: function($scope, $http, $routeParams) {
     console.log('Loaded user profile controller.')
     // Get user data
