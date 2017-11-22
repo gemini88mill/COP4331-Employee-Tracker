@@ -1,10 +1,12 @@
 package com.example.raphael.bigbrother;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -23,6 +25,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class LoginActivity extends AppCompatActivity {
+    private String url = "http://192.168.86.39:3000/api/user/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,56 +33,52 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
-    public void sendJSONRequest(View view) throws JSONException {
+    public void sendJSONRequest(View view) {
         System.out.println("Called sendJSONRequest");
 
         //get EditText Values
-        EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
+        final EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
         EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
-
-
-        RequestQueue mRequestQueue;
-
-        // Instantiate the cache
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-
-        // Set up the network to use HttpURLConnection as the HTTP client.
-        Network network = new BasicNetwork(new HurlStack());
-
-        // Instantiate the RequestQueue with the cache and network.
-        mRequestQueue = new RequestQueue(cache, network);
-
-        // Start the queue
-        mRequestQueue.start();
-
-        String url ="http://192.168.86.39:3000/api/user/login/";
+        String username = usernameTextField.getText().toString().trim();
+        String password = passwordTextField.getText().toString().trim();
         JSONObject body = new JSONObject();
         try {
-            body.put("username", usernameTextField.getText());
-            body.put("password", passwordTextField.getText());
+            body.put("username", username);
+            body.put("password", password);
         } catch (JSONException e) {
-            e.printStackTrace();
+            // TODO: Failback if username or password cannot be used to create JSON Object
         }
 
-        System.out.println(body);
-        // Formulate the request and handle the response.
-        mRequestQueue.add(new JsonObjectRequest
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.POST, url, body, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println(response);
+                        // Successful login
+                        doLogin();
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
+                        showHttpResponseError(error);
 
                     }
-                }));
+                });
 
+        ConnectionHandler.getInstance(this).addToRequestQueue(jsObjRequest);
+    }
 
-        System.out.println(mRequestQueue.getCache());
+    public void showHttpResponseError(VolleyError error) {
+        Toast.makeText(this, "Status Code (" + error.networkResponse.statusCode + "): Incorrect username or password.", Toast.LENGTH_LONG).show();
+    }
+
+    public void doLogin() {
+        // Proceed to HomeActivity
+        // NOTE(timp): I changed this to the HomeActivity because someone
+        //             should be able to log in before clocking in.
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 }
