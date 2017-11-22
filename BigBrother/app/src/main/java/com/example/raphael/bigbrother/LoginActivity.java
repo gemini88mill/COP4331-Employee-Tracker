@@ -1,10 +1,12 @@
 package com.example.raphael.bigbrother;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Cache;
 import com.android.volley.Network;
@@ -21,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
+    private String url = "http://192.168.86.39:3000/api/user/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,56 +31,44 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
-    public void sendJSONRequest(View view) throws JSONException {
-        System.out.println("Sending JSON...");
-
-        //get EditText Values
-        EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
+    public void sendJSONRequest(View view) {
+        // Get EditText Values
+        final EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
         EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
-
         String username = usernameTextField.getText().toString().trim();
         String password = passwordTextField.getText().toString().trim();
 
-
-        RequestQueue mRequestQueue;
-
-        // Instantiate the cache
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-
-        // Set up the network to use HttpURLConnection as the HTTP client.
-        Network network = new BasicNetwork(new HurlStack());
-
-        // Instantiate the RequestQueue with the cache and network.
-        mRequestQueue = new RequestQueue(cache, network);
-
-        // Start the queue
-        mRequestQueue.start();
-
-        String url ="http://192.168.86.39:3000/api/user/login/";
+        // Create body of JSON object to send to Web server
         JSONObject body = new JSONObject();
-        body.put("username", username);
-        body.put("password", password);
+        try {
+            body.put("username", username);
+            body.put("password", password);
+        } catch (JSONException e) {
+            // TODO: Fallback if username or password cannot be used to create JSON Object
+        }
 
-        // Formulate the request and handle the response.
-        mRequestQueue.add(new JsonObjectRequest
+        // Create a request
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.POST, url, body, new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
                         // Successful login
-                        System.out.println(response);
                         doLogin();
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println(error);
-
+                        showHttpResponseError(error);
                     }
-                }));
+                });
 
-//        System.out.println(mRequestQueue.getCache());
+        // Make the request (add it to the request queue)
+        ConnectionHandler.getInstance(this).addToRequestQueue(jsObjRequest);
+    }
+
+    public void showHttpResponseError(VolleyError error) {
+        Toast.makeText(this, "Status Code (" + error.networkResponse.statusCode + "): Incorrect username or password.", Toast.LENGTH_LONG).show();
     }
 
     public void doLogin() {
