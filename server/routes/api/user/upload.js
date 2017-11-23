@@ -10,7 +10,13 @@ const router     = require('express').Router(),
 
 let uploadService = (req, res) => {
 
+    console.log(req.body);
+
+    // Make directory if it doesn't exist
     let dir = path.join('public', 'img', 'uploads', req.headers.username)
+    let uploadDir = path.join('public', 'img', 'uploads')
+    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir)
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir)
 
     // Utility functions
     // Filter
@@ -50,10 +56,7 @@ let uploadService = (req, res) => {
     // Transfer file
     let upload = multer(opts).single('file')
 
-    // Make directory if it doesn't exist
-    let uploadDir = path.join('public', 'img', 'uploads')
-    if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir)
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir)
+
 
     // Upload
     upload(req, res, (err) => {
@@ -77,7 +80,37 @@ let uploadService = (req, res) => {
 
 router.post('/', (req, res) => {
   'use strict'
-  uploadService(req, res)
+  // uploadService(req, res)
+
+
+  // Make directory if it doesn't exist
+  let uploadDir = path.join('public', 'img', 'uploads')
+  if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir)
+  let dir = path.join('public', 'img', 'uploads', req.body.username)
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir)
+
+  // // Check file type
+  // if (!req.body.fileType.match(/\.(jpg|jpeg|png)$/)) {
+  //   req.fileValidationError = 'Invalid file type. Acceptable file types: jpg, jpeg, png'
+  //   return
+  // }
+  let fileName = (new Date) + '.' + req.body.fileType
+  let fileLocation = path.join(dir, fileName)
+
+  Employee.findOneAndUpdate( { username: req.body.username }, { picture: path.join('img', 'uploads', req.body.username, fileName) }, {upsert: true}, (err, user) => {
+    if (err) {
+      res.status(500).json({ message: 'Picture NOT changed.', error: err })
+    } else {
+      res.status(200).json({ message: 'Picture changed to ' + req.body.picture, data: req.body })
+
+      var bitmap = new Buffer(req.body.file, 'base64')
+      fs.writeFileSync(fileLocation, bitmap)
+    }
+  })
+
+
+
+
 
 })
 module.exports = router
