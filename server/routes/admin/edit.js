@@ -4,18 +4,17 @@ var     router      = require('express').Router(),
         Employee    = require('../../models/user'),
         middleware  = require('../middleware');
 
-// edit information for singular administrator (currently logged in)
-router.post("/", middleware.isAdministrator, function(req, res) {
+// edit information for singular administrator (currently logged in); /profile/edit url
+router.get("/", middleware.isAdministrator, function(req, res) {
     
-    // show form to edit post with information already in it
-   
-    Employee.find({ username: req.user.username }, function(err, admin) {
+    // show form to edit admin profile with information already in it
+    Employee.findOne({ username: req.user.username }, function(err, admin) {
         if(err) {
            console.log("Unable to retrieve admin with username " + req.user.username);
            res.redirect("/");
         }
         
-        // cannot edit admin accounts
+        // cannot edit non-admin accounts
         else if (admin.privilege === 0) {
             console.log("Error retrieving admin with username: " + req.user.username + "; incorrect privilege level.");
             res.redirect("/");
@@ -26,24 +25,26 @@ router.post("/", middleware.isAdministrator, function(req, res) {
         }
    });
     
+
+});
+
+
+// submit information from form for updates to admin profile
+router.put("/", middleware.isAdministrator, function(req, res) {
     
-    // get current username from login information, search for user
-    Employee.find({ username: req.params.user.username }, function(err, admin) {
+    // find admin document with unique username, submit changes, redirect to profile page
+    Employee.findOneAndUpdate( { username: req.user.username }, req.body.admin, function(err, admin) {
         if(err) {
-            // if( req.params.id != "bootstrap.min.js")
-            console.log("Error retrieving admin with id: " + req.params.id);
-            res.redirect("/");
+            console.log("Unable to update admin with username: " + req.user.username);
+            req.flash("error", "Unable to update profile, please try again later.");
+            res.redirect("admin/profile");
         }
-        
-        else if (admin.privilege === 0) {
-            console.log("Error retrieving admin with id: " + req.params.id + "; incorrect privilege level.");
-            res.redirect("/");
-        }
-        
         else {
-            res.render("admin/profile", {admin: admin});
+            console.log("Updated admin with username: " + req.user.username);
+            res.redirect("admin/profile");
         }
     });
 });
+
 
 module.exports = router;

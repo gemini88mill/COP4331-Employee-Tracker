@@ -12,10 +12,7 @@ middlewareObj.isAuthenticated = function(req, res, next) {
 
 middlewareObj.isAdministrator = function(req, res, next) {
     
-    console.log("isAdministrator middleware entered.\n");
-    
     if(req.isAuthenticated() && req.user.privilege > 0) {
-        console.log("isAuthenticated: " + req.isAuthenticated() + ", user privilege: " + req.user.privilege + ".\n");
         return next();
     }
     req.flash("error", "You must be an administrator to do that.");

@@ -5,7 +5,7 @@ var     router      = require('express').Router(),
         middleware  = require('../middleware');
 
 
-// see information for singular employee
+// see information for singular employee; /employee/:id url
 router.get("/:id", middleware.isAdministrator, function(req, res) {
     
     Employee.findById(req.params.id, function(err, employee) {

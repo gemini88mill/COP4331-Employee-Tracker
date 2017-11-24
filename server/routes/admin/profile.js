@@ -5,11 +5,11 @@ var     router      = require('express').Router(),
         middleware  = require('../middleware');
 
 
-// see information for singular administrator (currently logged in)
+// see information for singular administrator (currently logged in); /profile url
 router.get("/", middleware.isAdministrator, function(req, res) {
     
     // get current username from login information, search for user
-    Employee.find({ username: req.user.username }, function(err, admin) {
+    Employee.findOne({ username: req.user.username }, function(err, admin) {
         if(err) {
             // if( req.params.id != "bootstrap.min.js")
             console.log("Error retrieving admin with username: " + req.user.username);
