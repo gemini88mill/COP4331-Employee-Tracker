@@ -25,6 +25,9 @@ router.put("/", middleware.isAdministrator, function(req, res) {
       
       else {
           console.log("New task created.");
+          
+          // TODO: When task is assigned, send email to assignees notifying them.
+          
           req.flash("success", "New task created.");
           
           res.redirect('task/view' + task._id);

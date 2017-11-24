@@ -16,14 +16,14 @@ var userSchema = new mongoose.Schema( {
     
     firstName:  {
                     type:       String,
-                    validate:   /[A-Za-z-']/, // name is A-Z, a-z, hyphens and apostrophes
+                    validate:   /^[A-Z]'?[- a-zA-Z]+$/, // name is A-Z, a-z, hyphens and apostrophes
                     required:   true,
                     trim:       true
                 },
                 
     lastName:   {
                     type:       String,
-                    validate:   /[A-Za-z-']/,
+                    validate:   /^[A-Z]'?[- a-zA-Z]+$/,
                     required:   true,
                     trim:       true
                 },
@@ -52,10 +52,7 @@ var userSchema = new mongoose.Schema( {
                     match:      [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
                 },
                 
-    password:   {
-                    type:       String,
-                    required:   true
-                },
+    password:   String,
                 
     // group: Number, // not sure if we're still doing group assignments for employees
     tasks:      [ // task list stored by task id

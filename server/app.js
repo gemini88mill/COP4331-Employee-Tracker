@@ -1,17 +1,19 @@
 // ------------------ //
 // ---DEPENDENCIES--- //
 // ------------------ //
-var bodyParser      = require("body-parser"),
-    methodOverride  = require("method-override"),
-    mongoose        = require("mongoose"),
-    localStrategy   = require("passport-local"),
-    passport        = require("passport"),
-    flash           = require("connect-flash"),
-    path            = require('path'),
-    multer          = require('multer'),
-    cors            = require('cors'),
-    fs              = require('fs'),
-    express         = require("express");
+var bodyParser              = require("body-parser"),
+    methodOverride          = require("method-override"),
+    mongoose                = require("mongoose"),
+    localStrategy           = require("passport-local"),
+    passport                = require("passport"),
+    flash                   = require("connect-flash"),
+    path                    = require('path'),
+    multer                  = require('multer'),
+    cors                    = require('cors'),
+    fs                      = require('fs'),
+    nodemailer              = require("nodemailer"),
+    express                 = require("express"),
+    passportLocalMongoose   = require("passport-local-mongoose");
 
 // app setup
 var app = express();
