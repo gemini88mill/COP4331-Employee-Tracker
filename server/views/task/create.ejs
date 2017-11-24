@@ -1,12 +1,29 @@
 <% include ../partials/header %>
 
-<div class="container col-lg-8">
-  <div class="container row">
-    <h3>Create New Task</h3>
-  </div>
-  <div class="container row">
-    <i>Placeholder</i>
-  </div>
+<div class = "container-fluid">
+    <br>
+    <h1 class = "text-center">CREATE TASK</h1>
+    <form action = "/task/create" method="POST">
+        <div class = "form-group" style="width: 50%; margin: 25px auto;">
+            <label>Task Name</label>
+            <input class = "form-control" type = "text" name = "task[name]" placeholder = "Pawnee Cares Telethon" required>
+        </div>
+        <div class = "form-group" style="width: 50%; margin: 25px auto;">
+            <label>Task Description</label>
+            <textarea class="form-control" name = "task[description]" rows="5" placeholder = "Call everyone! Fire Jerry. Love Ann Perkins." required></textarea>
+        </div>
+        <div class="form-group" style="width: 50%; margin: 25px auto;">
+            <label>Assign to Employees</label>
+                <select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
+                    <option value="cheese">Cheese</option>
+                    <option value="tomatoes">Tomatoes</option>
+                    <option value="mozarella">Mozzarella</option>
+                    <option value="mushrooms">Mushrooms</option>
+                    <option value="pepperoni">Pepperoni</option>
+                    <option value="onions">Onions</option>
+                </select>
+        </div>
+    </form>
 </div>
 
 <% include ../partials/footer %>

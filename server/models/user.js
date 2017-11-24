@@ -35,7 +35,8 @@ var userSchema = new mongoose.Schema( {
                 },
     
     // username is a uniqued, required, all lowercase string, spaces are trimmed
-    username:   {   type:       String,
+    username:   {
+                    type:       String,
                     required:   true,
                     trim:       true,
                     unique:     true,
@@ -62,7 +63,10 @@ var userSchema = new mongoose.Schema( {
                     }
                 ],
                 
-    picture:    String, // string for a hosted URL, at least for now
+    picture:    {
+                    type:   String, // string for a hosted URL, at least for now
+                    default: "https://d3g919u5f14ld1.cloudfront.net/assets/images/users/default-avatar.svg"
+                },
     
     locations:  {
                     type: [{

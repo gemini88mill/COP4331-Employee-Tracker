@@ -4,54 +4,33 @@
 <div class="container col-lg-8">
   <br>
   <div class="container row">
-    <h3>View Profile: {{username}}</h3>
+    <h3><%= admin.firstName %> <%= admin.lastName %></h3>
+    <a href = "/profile/edit/<%= admin._id %>">
+      <button class = "btn btn-warning btn-sm" style = "transform: translateX(20px);">
+          Edit
+      </button>
+    </a>
   </div>
   <br>
   <br>
   <div class="container row">
-    <div class="container col-8 row">
-      <div class="container col-2">
-        <div class="row">First name</div>
-        <div class="row">Last name</div>
-        <div class="row">Username</div>
-        <div class="row">Position</div>
-        <div class="row">Teams</div>
-      </div>
-      <div class="container col-6">
-        <div class="row">{{firstName}}</div>
-        <div class="row">{{lastName}}</div>
-        <div class="row">{{username}}</div>
-        <div class="row"><span class="badge badge-primary badge-pill">{{position}}</span></div>
-        <div class="row">{{teams}}</div>
-      </div>
-    </div>
     <div class="container col-4">
-      <img src="{{picture}}" class="img-fluid profile-image" alt="Responsive image">
+      <img src="<%= admin.picture %>" class="img-fluid profile-image">
     </div>
-  </div>
-  <div class="container row">
-    <h4>Location of Last Check-in</h4>
-    <div class="container row">
-      <div id="map"></div>
-    </div>
-  </div>
-  <br>
-  <div class="container row">
-    <h4>Tasks</h4>
-    <div class="container row col-12">
-      <div class="card">
-        <div class="card-body">
-          <h4 class="card-title">Task title</h4>
-          <h6 class="card-subtitle mb-2 text-muted">task subtitle</h6>
-          <p class="card-text">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </p>
-          <a href="#!" class="card-link">Mark Complete</a>
-          <a href="#!" class="card-link">Unassign Task</a>
-        </div>
+    <div class="container col-8 row">
+      <div class="container col-1">
+        <div class="row"><b>USERNAME</b></div>
+        <div class="row"><b>EMAIL</b></div>
+        <div class="row"><b>POSITION</b></div>
+      </div>
+      <div class="container col-7">
+        <div class="row"><%= admin.username %></div>
+        <div class="row"><%= admin.email %></div>
+        <div class="row"><span class="badge badge-primary badge-pill"><%= admin.position %></span></div>
       </div>
     </div>
   </div>
+  <br>
 </div>
 
 <% include ../partials/footer %>

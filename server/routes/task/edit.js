@@ -5,7 +5,7 @@ var     router      = require('express').Router(),
         Task        = require('../../models/task'),
         middleware  = require('../middleware');
 
-// display form for editing singular task; edit/:id url
+// display form for editing singular task; /task/edit/:id url
 router.get("/:id", middleware.isAdministrator, function(req, res) {
     
     Task.findById(req.params.id, function(err, task) {

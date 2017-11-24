@@ -1,11 +1,55 @@
 <% include ../partials/header %>
 
 <div class="container col-lg-8">
+  <br>
   <div class="container row">
-    <h3>View Individual Employee</h3>
+    <h3>View Profile: {{username}}</h3>
+  </div>
+  <br>
+  <br>
+  <div class="container row">
+    <div class="container col-8 row">
+      <div class="container col-2">
+        <div class="row">First name</div>
+        <div class="row">Last name</div>
+        <div class="row">Username</div>
+        <div class="row">Position</div>
+        <div class="row">Teams</div>
+      </div>
+      <div class="container col-6">
+        <div class="row">{{firstName}}</div>
+        <div class="row">{{lastName}}</div>
+        <div class="row">{{username}}</div>
+        <div class="row"><span class="badge badge-primary badge-pill">{{position}}</span></div>
+        <div class="row">{{teams}}</div>
+      </div>
+    </div>
+    <div class="container col-4">
+      <img src="{{picture}}" class="img-fluid profile-image" alt="Responsive image">
+    </div>
   </div>
   <div class="container row">
-    <i>Placeholder</i>
+    <h4>Location of Last Check-in</h4>
+    <div class="container row">
+      <div id="map"></div>
+    </div>
+  </div>
+  <br>
+  <div class="container row">
+    <h4>Tasks</h4>
+    <div class="container row col-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Task title</h4>
+          <h6 class="card-subtitle mb-2 text-muted">task subtitle</h6>
+          <p class="card-text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <a href="#!" class="card-link">Mark Complete</a>
+          <a href="#!" class="card-link">Unassign Task</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
