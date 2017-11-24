@@ -33,10 +33,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sendJSONRequest(View view) {
         // Get EditText Values
-        final EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
+        EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
         EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
+        usernameTextField.setText("lknope");
+        passwordTextField.setText("pawneerocks");
         String username = usernameTextField.getText().toString().trim();
         String password = passwordTextField.getText().toString().trim();
+
 
         // Create body of JSON object to send to Web server
         JSONObject body = new JSONObject();
@@ -68,7 +71,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showHttpResponseError(VolleyError error) {
-        Toast.makeText(this, "Status Code (" + error.networkResponse.statusCode + "): Incorrect username or password.", Toast.LENGTH_LONG).show();
+        // If the server could be access, but error code was returned
+        if (error.networkResponse != null) {
+            Toast.makeText(this, "Status Code (" + error.networkResponse.statusCode + "): Incorrect username or password.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            // In case no connection could be established at all (i.e., server is down)
+            Toast.makeText(this, "Could not connect to server.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void doLogin() {
