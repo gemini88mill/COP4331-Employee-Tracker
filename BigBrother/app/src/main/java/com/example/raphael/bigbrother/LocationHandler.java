@@ -78,7 +78,7 @@ public class LocationHandler extends AppCompatActivity implements LocationListen
                 body.put("username", ConnectionHandler.username);
                 body.put("location", getCoordinates());
             } catch (JSONException e) {}
-            String url = "http://192.168.86.39:3000/api/user/clock";
+            String url = "http://192.168.86.39:3000/employee/clock";
             JsonObjectRequest jsObjRequest = new JsonObjectRequest
                     (Request.Method.PUT, url, body, new Response.Listener<JSONObject>() {
                         @Override
