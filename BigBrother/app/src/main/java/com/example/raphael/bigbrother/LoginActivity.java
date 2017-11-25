@@ -32,8 +32,8 @@ public class LoginActivity extends AppCompatActivity {
         System.out.println("Sending JSON...");
 
         //get EditText Values
-        EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
-        EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
+        EditText usernameTextField = findViewById(R.id.usernameField);
+        EditText passwordTextField = findViewById(R.id.passwordField);
 
         String username = usernameTextField.getText().toString().trim();
         String password = passwordTextField.getText().toString().trim();
