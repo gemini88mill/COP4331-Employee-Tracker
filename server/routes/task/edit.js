@@ -15,7 +15,15 @@ router.get("/:id", middleware.isAdministrator, function(req, res) {
         }
        
         else {
-            res.render("task/edit", {task: task});
+            // show all level 0 employees in task assignment form
+            Employee.find({ privilege: 0 }, function(err, employees) {
+                if(err) {
+                    console.log("Error getting employees from database.");
+                    return res.redirect("/task");
+                }
+                
+                res.render("task/edit", {employees : employees, task : task});
+            });
         }
     });
 });
@@ -25,15 +33,15 @@ router.get("/:id", middleware.isAdministrator, function(req, res) {
 router.put("/:id", middleware.isAdministrator, function(req, res) {
     
     // update post from the form
-    Task.findByIdAndUpdate(req.params.id, req.body.post, function(err, task) {
+    Task.findByIdAndUpdate(req.params.id, req.body.task, function(err, task) {
         if(err) {
             console.log("Unable to update task with id: " + req.params.id);
             req.flash("error", "Unable to update task, please try again later.");
             res.redirect("task/index");
         }
         else {
-            console.log("Updated task with id: " + req.params.id);
-            res.redirect("task/view" + req.params.id);
+            console.log("Updated task with id: " + req.params.id + ".");
+            res.redirect("/task/view/" + req.params.id);
         }
     });
 });

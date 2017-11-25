@@ -9,6 +9,7 @@ var     router      = require('express').Router();
 router.use('/',         require('./list.js'     )); // view all tasks
 router.use('/edit',     require('./edit.js'     )); // edit singular task
 router.use('/create',   require('./create.js'   )); // create new task
-router.use('/view',     require('./view.js'     )); // view singular task (also delete)
+router.use('/view',     require('./view.js'     )); // view singular task
+router.use('/delete',   require('./delete.js'   )); // delete singular task
 
 module.exports = router;

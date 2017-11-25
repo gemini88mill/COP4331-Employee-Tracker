@@ -23,7 +23,7 @@ router.get("/", middleware.isAdministrator, function(req, res) {
 
 
 // submit newly created task to database
-router.put("/", middleware.isAdministrator, function(req, res) {
+router.post("/", middleware.isAdministrator, function(req, res) {
    
    // get data from form and make new task
    Task.create(req.body.task, function(err, task) {
@@ -41,7 +41,7 @@ router.put("/", middleware.isAdministrator, function(req, res) {
           
           req.flash("success", "New task created.");
           
-          res.redirect('task/view' + task._id);
+          res.redirect('view/' + task._id);
       }
    });
     

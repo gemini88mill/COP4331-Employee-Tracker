@@ -1,8 +1,6 @@
 'use strict'
 var     router      = require('express').Router();
 
-// THESE PAGES DO NOT REQUIRE AUTHENTICATION MIDDLEWARE
-
 // for testing purposes
 router.use(function(req, res, next) {
     // do logging
@@ -19,6 +17,7 @@ router.use('/register', require('./register.js'     ));
 router.use('/logout',   require('./logout.js'       ));
 router.use('/employee', require('./employee'        ));
 router.use('/profile',  require('./admin'           ));
+router.use('/help',     require('./help.js'         ));
 // router.use('/team',     require('./team'            ));
 router.use('/task',     require('./task'            ));
 

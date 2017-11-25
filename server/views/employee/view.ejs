@@ -1,7 +1,5 @@
 <% include ../partials/header %>
 
-<% var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }; %>
-
 <div class="container col-lg-8">
   <br>
   <div class="container row">
@@ -24,7 +22,7 @@
         <div class="row"><%= employee.username %></div>
         <div class="row"><%= employee.email %></div>
         <div class="row"><span class="badge badge-primary badge-pill"><%= employee.position %></span></div>
-        <div class="row"><%= employee.timeLastUpdate.toLocaleDateString("en-US", options) %></div>
+        <div class="row"><%= employee.timeLastUpdate %></div>
       </div>
     </div>
   </div>

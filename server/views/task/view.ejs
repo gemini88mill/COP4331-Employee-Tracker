@@ -1,11 +1,36 @@
 <% include ../partials/header %>
 
+<br>
 <div class="container col-lg-8">
   <div class="container row">
-    <h3>View Task: {{id}}</h3>
+    <h3>View Task: <%= task.name %></h3>
+    <a href = "/task/edit/<%= task._id %>">
+      <button class = "btn btn-warning btn-sm" style = "transform: translateX(20px);">
+          Edit
+      </button>
+    </a>
+    <form style = "display: inline;" action="/task/delete/<%= task._id %>?_method=DELETE" method="POST">
+                <button class = "btn btn-danger btn-sm" style = "transform: translateX(30px);">
+                    Delete
+                </button>
+    </form>
   </div>
+  <br>
   <div class="container row">
-    <i>Placeholder</i>
+    <div class="container row">
+      <div class="container col-2">
+        <div class="row"><b>DESCRIPTION</b></div>
+        <div class="row"><b>DUE DATE</b></div>
+        <div class="row"><b>IS COMPLETE</b></div>
+        <div class="row"><b>ASSIGNED TO</b></div>
+      </div>
+      <div class="container col-10">
+        <div class="row"><%= task.description %></div>
+        <div class="row"><%= task.due %></div>
+        <div class="row"><%= task.done %></div>
+        <div class="row">To do</div>
+      </div>
+    </div>
   </div>
 </div>
 

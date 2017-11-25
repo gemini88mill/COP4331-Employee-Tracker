@@ -12,6 +12,10 @@
             <label>Task Description</label>
             <textarea class="form-control" name = "task[description]" rows="5" placeholder = "Call everyone! Fire Jerry. Love Ann Perkins." required></textarea>
         </div>
+        <div class = "form-group" style="width: 50%; margin: 25px auto;">
+            <label>Due Date</label>
+            <input class = "form-control" type = "date" name = "task[due]" min="2017-11-24" required>
+        </div>
         <div class="form-group" style="width: 50%; margin: 25px auto;">
             <label>Assign to Employees</label>
                 <select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
@@ -19,6 +23,8 @@
                     <option value="<%= employee._id %>"><%= employee.firstName %> <%= employee.lastName %></option>
                     <% }); %>
                 </select>
+            <br>
+            <button type="submit" class="btn btn-secondary btn-block">Submit</button>
         </div>
     </form>
 </div>

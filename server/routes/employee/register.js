@@ -32,7 +32,7 @@ router.post("/", function(req, res) {
     //          console.log("New employee created: " + newEmployee.username + ", " + newEmployee.firstName + " " + newEmployee.lastName + ".");
     //          res.json({
     //              type: 'POST',
-    //              message: 'Error registering new employee.',
+    //              message: 'New employee successfully registered.',
     //              receivedData: req.body
     //          });
     //         });
