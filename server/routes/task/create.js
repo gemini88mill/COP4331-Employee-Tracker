@@ -8,7 +8,17 @@ var     router      = require('express').Router(),
 
 // new task form, /task/create url
 router.get("/", middleware.isAdministrator, function(req, res) {
-    res.render("task/create");
+    
+     // show all level 0 employees in task assignment form
+    Employee.find({ privilege: 0 }, function(err, employees) {
+        if(err) {
+            console.log("Error getting employees from database.");
+            return res.redirect("/task");
+        }
+        
+        res.render("task/create", {employees : employees});
+    });
+    
 });
 
 
@@ -16,7 +26,7 @@ router.get("/", middleware.isAdministrator, function(req, res) {
 router.put("/", middleware.isAdministrator, function(req, res) {
    
    // get data from form and make new task
-   Task.create(req.body.post, function(err, task) {
+   Task.create(req.body.task, function(err, task) {
       if(err) {
           console.log("Unable to create new task: " + err);
           req.flash("error", "Unable to create new task.");
@@ -27,6 +37,7 @@ router.put("/", middleware.isAdministrator, function(req, res) {
           console.log("New task created.");
           
           // TODO: When task is assigned, send email to assignees notifying them.
+          // TODO: When task is assigned, add to designated employees' task list.
           
           req.flash("success", "New task created.");
           

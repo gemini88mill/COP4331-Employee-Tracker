@@ -32,17 +32,15 @@ router.get("/:id", middleware.isAdministrator, function(req, res) {
 // submit information from form for updates to admin profile
 router.put("/:id", middleware.isAdministrator, function(req, res) {
     
-    var newAdmin = new Employee ({firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email});
-    
     // find admin document with unique username, submit changes, redirect to profile page
-    Employee.findByIdAndUpdate(req.params.id, {firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email}, function(err, admin) {
+    Employee.findByIdAndUpdate(req.params.id, {firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, position: req.body.position}, function(err, admin) {
         if(err) {
-            console.log("Unable to update admin with username: " + req.user.username + ", error: " + err + ".");
+            console.log("Unable to update admin with username " + req.user.username + ", error: " + err + ".");
             req.flash("error", "Unable to update profile, please try again later.");
             res.redirect("/profile");
         }
         else {
-            console.log("Updated admin with username: " + req.user.username + ".");
+            console.log("Updated admin with username " + req.user.username + ".");
             res.redirect("/profile");
         }
     });

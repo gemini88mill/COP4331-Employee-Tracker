@@ -9,6 +9,7 @@ var     router      = require('express').Router();
 // employee clock-in and picture upload routes
 router.use('/clock',    require('./clock.js'    ));
 router.use('/upload',   require('./upload.js'   ));
+router.use('/register', require('./register.js' ));
 
 // THESE ROUTES DO
 // employee list/singular view routes (cannot edit or delete employees)

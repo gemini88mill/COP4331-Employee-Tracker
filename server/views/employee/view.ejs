@@ -1,39 +1,42 @@
 <% include ../partials/header %>
 
+<% var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }; %>
+
 <div class="container col-lg-8">
   <br>
   <div class="container row">
-    <h3>View Profile: {{username}}</h3>
+    <h3><%= employee.firstName %> <%= employee.lastName %></h3>
   </div>
   <br>
   <br>
   <div class="container row">
-    <div class="container col-8 row">
-      <div class="container col-2">
-        <div class="row">First name</div>
-        <div class="row">Last name</div>
-        <div class="row">Username</div>
-        <div class="row">Position</div>
-        <div class="row">Teams</div>
-      </div>
-      <div class="container col-6">
-        <div class="row">{{firstName}}</div>
-        <div class="row">{{lastName}}</div>
-        <div class="row">{{username}}</div>
-        <div class="row"><span class="badge badge-primary badge-pill">{{position}}</span></div>
-        <div class="row">{{teams}}</div>
-      </div>
-    </div>
     <div class="container col-4">
-      <img src="{{picture}}" class="img-fluid profile-image" alt="Responsive image">
+      <img src="<%= employee.picture %>" class="img-fluid profile-image">
+    </div>
+    <div class="container col-8 row">
+      <div class="container col-1">
+        <div class="row"><b>USERNAME</b></div>
+        <div class="row"><b>EMAIL</b></div>
+        <div class="row"><b>POSITION</b></div>
+        <div class="row"><b>TIME OF LAST UPDATE</b></div>
+      </div>
+      <div class="container col-7">
+        <div class="row"><%= employee.username %></div>
+        <div class="row"><%= employee.email %></div>
+        <div class="row"><span class="badge badge-primary badge-pill"><%= employee.position %></span></div>
+        <div class="row"><%= employee.timeLastUpdate.toLocaleDateString("en-US", options) %></div>
+      </div>
     </div>
   </div>
+  <br>
+  <br>
   <div class="container row">
     <h4>Location of Last Check-in</h4>
     <div class="container row">
       <div id="map"></div>
     </div>
   </div>
+  <br>
   <br>
   <div class="container row">
     <h4>Tasks</h4>

@@ -68,6 +68,8 @@ var userSchema = new mongoose.Schema( {
                     default: "https://d3g919u5f14ld1.cloudfront.net/assets/images/users/default-avatar.svg"
                 },
     
+    position:   String,
+    
     locations:  {
                     type: [{
                         lat: [Number],

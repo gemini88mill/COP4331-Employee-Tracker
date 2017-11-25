@@ -15,12 +15,9 @@
         <div class="form-group" style="width: 50%; margin: 25px auto;">
             <label>Assign to Employees</label>
                 <select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
-                    <option value="cheese">Cheese</option>
-                    <option value="tomatoes">Tomatoes</option>
-                    <option value="mozarella">Mozzarella</option>
-                    <option value="mushrooms">Mushrooms</option>
-                    <option value="pepperoni">Pepperoni</option>
-                    <option value="onions">Onions</option>
+                    <% employees.forEach(function(employee){ %>
+                    <option value="<%= employee._id %>"><%= employee.firstName %> <%= employee.lastName %></option>
+                    <% }); %>
                 </select>
         </div>
     </form>

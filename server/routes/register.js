@@ -14,8 +14,6 @@ router.get("/", function(req, res) {
 router.post("/", function(req, res) {
     
     var newAdmin = new User ({username: req.body.username, privilege: 1, firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email});
-    
-    // TODO: search for user with username or email that already exists
 
     // create a new user, saving the hashed password instead of the password
     User.register(newAdmin, req.body.password, function(err) {
