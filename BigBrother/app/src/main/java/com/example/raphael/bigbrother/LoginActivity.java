@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         System.out.println(error);
-
+                        //System.out.println("Custom Error response");
                     }
                 }));
 
