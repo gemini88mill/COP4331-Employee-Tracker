@@ -41,4 +41,17 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/passwordField"
         app:layout_constraintLeft_toRightOf="@+id/passwordField"
         app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/newUser"
+        android:layout_width="158dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:onClick="newUserSignIn"
+        android:text="@string/newUser"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submit" />
 </android.support.constraint.ConstraintLayout>

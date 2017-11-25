@@ -28,6 +28,15 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
+    public void newUserSignIn(View view){
+        //open new user activity on click event.
+
+        System.out.println("clicked New user button, going to SignIn Activity");
+
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
+    }
+
     public void sendJSONRequest(View view) throws JSONException {
         System.out.println("Sending JSON...");
 
