@@ -22,10 +22,11 @@ public class ConnectionHandler {
     private static Context mCtx;
 
     // User state
-    public static String username;
-    public static Boolean clockStatus;
+    static String username;
+    static Boolean clockStatus;
 
     private ConnectionHandler(Context context) {
+        clockStatus = false;
         mCtx = context;
         mRequestQueue = getRequestQueue();
 

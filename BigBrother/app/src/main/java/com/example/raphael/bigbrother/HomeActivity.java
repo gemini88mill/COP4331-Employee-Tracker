@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 
 public class HomeActivity extends AppCompatActivity {
+    public static LocationHandler locationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        locationHandler = new LocationHandler(this);
     }
 
     public void onTaskListClick(View view){
@@ -36,6 +38,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void onSignOutClick(View view){
         System.out.println("back to start");
+//        locationHandler.stop(); // TODO(timp): stop listening for changes in position after logging off
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);

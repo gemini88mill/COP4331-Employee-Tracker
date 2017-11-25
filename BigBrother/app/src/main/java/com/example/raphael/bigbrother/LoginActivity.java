@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // Successful login
                         try {
+                            // Save the user's username for the session
                             ConnectionHandler.username = body.getString("username");
                         } catch (JSONException e) {
                             e.printStackTrace();

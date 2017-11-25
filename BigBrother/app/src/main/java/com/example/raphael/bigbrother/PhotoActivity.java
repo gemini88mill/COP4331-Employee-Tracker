@@ -50,7 +50,6 @@ public class PhotoActivity extends AppCompatActivity {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView mimageView;
     private String eImage;
-    private LocationHandler locationHandler;
 
     /**
      * onCreate - method to invoke the creation of the new activity
@@ -64,8 +63,6 @@ public class PhotoActivity extends AppCompatActivity {
 
         Button photoButton = (Button) this.findViewById(R.id.pictureCapture);
         mimageView = (ImageView) findViewById(R.id.imageView);
-
-        locationHandler = new LocationHandler(this);
     }
 
     @Override
@@ -140,6 +137,7 @@ public class PhotoActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // Successful update location
                         showHttpResponse(response);
+                        ConnectionHandler.clockStatus = true;
                         goHome();
                     }
                 }, new Response.ErrorListener() {
@@ -174,5 +172,9 @@ public class PhotoActivity extends AppCompatActivity {
     private void goHome() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+    }
+
+    public void doClockIn() {
+
     }
 }

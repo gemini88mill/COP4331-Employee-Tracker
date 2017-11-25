@@ -46,7 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         // Create body of JSON object to send to Web server
-        JSONObject body = new JSONObject();
+        final JSONObject body = new JSONObject();
         try {
             body.put("firstName", firstName);
             body.put("lastName", lastName);
@@ -63,6 +63,11 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Successful login
+                        try {
+                            ConnectionHandler.username = body.getString("username");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         goHome();
                     }
                 }, new Response.ErrorListener() {
