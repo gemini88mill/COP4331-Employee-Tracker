@@ -11,34 +11,41 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by tim on 11/24/17.
  */
 
 public class LocationHandler implements LocationListener {
-    private LocationManager locationManager;
-    private LocationListener locationListener;
-    private String locationProvider;
-    public static double lat = 0.0;
-    public static double lng = 0.0;
+    static double lat;
+    static double lng;
 
     public LocationHandler(AppCompatActivity activity) {
-        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        LocationManager locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             return;
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        locationProvider = locationManager.GPS_PROVIDER;
+        String locationProvider = LocationManager.GPS_PROVIDER;
         Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
     }
 
+    public static JSONObject getCoordinates() throws JSONException {
+        JSONObject res = new JSONObject();
+        res.put("lat", lat);
+        res.put("lng", lng);
+        return res;
+    }
 
     @Override
     public void onLocationChanged(Location location) {
+        // Update the last known location for the user
         lat = location.getLatitude();
         lng = location.getLongitude();
-        System.out.println(location.toString());
     }
 
     @Override

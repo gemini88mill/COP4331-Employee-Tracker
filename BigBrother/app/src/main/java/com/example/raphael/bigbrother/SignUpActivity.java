@@ -1,8 +1,8 @@
 package com.example.raphael.bigbrother;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,11 +14,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.security.NoSuchAlgorithmException;
-
-import static java.security.spec.MGF1ParameterSpec.SHA1;
-import org.mindrot.jbcrypt.BCrypt;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -45,15 +40,10 @@ public class SignUpActivity extends AppCompatActivity {
         String password = passwordTextField.getText().toString().trim();
         String password2 = passwordVerificationTextField.getText().toString().trim();
 
-        if (!password2.equals(password2)) {
-            Toast.makeText(this, "Password entries do not match. Please re-enter your password.", Toast.LENGTH_SHORT);
+        if (!password.equals(password2)) {
+            Toast.makeText(this, "Password entries do not match. Please re-enter your password.", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        // Hash password
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        System.out.println(hashedPassword);
-
 
         // Create body of JSON object to send to Web server
         JSONObject body = new JSONObject();
@@ -62,7 +52,7 @@ public class SignUpActivity extends AppCompatActivity {
             body.put("lastName", lastName);
             body.put("email", email);
             body.put("username", username);
-            body.put("password", hashedPassword);
+            body.put("password", password);
         } catch (JSONException e) {
             // TODO: Fallback if username or password cannot be used to create JSON Object
         }

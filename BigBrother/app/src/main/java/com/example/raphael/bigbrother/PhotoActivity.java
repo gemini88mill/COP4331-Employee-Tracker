@@ -128,10 +128,7 @@ public class PhotoActivity extends AppCompatActivity {
         try {
             body.put("username", ConnectionHandler.username);
             body.put("clockStatus", "true");
-            JSONObject locationObj = new JSONObject();
-            locationObj.put("lat", LocationHandler.lat);
-            locationObj.put("lng", LocationHandler.lng);
-            body.put("location", locationObj);
+            body.put("location", LocationHandler.getCoordinates());
         } catch (JSONException e) {
 
         }
