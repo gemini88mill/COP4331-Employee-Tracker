@@ -31,10 +31,29 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
+<<<<<<< HEAD
     public void sendJSONRequest(View view) {
         // Get EditText Values
         final EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
         EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
+=======
+    public void newUserSignIn(View view){
+        //open new user activity on click event.
+
+        System.out.println("clicked New user button, going to SignIn Activity");
+
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
+    }
+
+    public void sendJSONRequest(View view) throws JSONException {
+        System.out.println("Sending JSON...");
+
+        //get EditText Values
+        EditText usernameTextField = findViewById(R.id.usernameField);
+        EditText passwordTextField = findViewById(R.id.passwordField);
+
+>>>>>>> upstream/master
         String username = usernameTextField.getText().toString().trim();
         String password = passwordTextField.getText().toString().trim();
 
@@ -59,7 +78,12 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+<<<<<<< HEAD
                         showHttpResponseError(error);
+=======
+                        System.out.println(error);
+                        //System.out.println("Custom Error response");
+>>>>>>> upstream/master
                     }
                 });
 
