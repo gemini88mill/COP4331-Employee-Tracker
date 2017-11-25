@@ -1,29 +1,21 @@
 package com.example.raphael.bigbrother;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Cache;
-import com.android.volley.Network;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
-    private String url = "http://192.168.86.39:3000/api/user/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +23,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
-<<<<<<< HEAD
-    public void sendJSONRequest(View view) {
-        // Get EditText Values
-        final EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
-        EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
-=======
     public void newUserSignIn(View view){
         //open new user activity on click event.
 
@@ -48,17 +34,17 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sendJSONRequest(View view) throws JSONException {
         System.out.println("Sending JSON...");
+        String url = getResources().getString(R.string.loginUrl);
 
         //get EditText Values
         EditText usernameTextField = findViewById(R.id.usernameField);
         EditText passwordTextField = findViewById(R.id.passwordField);
 
->>>>>>> upstream/master
         String username = usernameTextField.getText().toString().trim();
         String password = passwordTextField.getText().toString().trim();
 
         // Create body of JSON object to send to Web server
-        JSONObject body = new JSONObject();
+        final JSONObject body = new JSONObject();
         try {
             body.put("username", username);
             body.put("password", password);
@@ -72,18 +58,19 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Successful login
+                        try {
+                            // Save the user's username for the session
+                            ConnectionHandler.username = body.getString("username");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         doLogin();
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-<<<<<<< HEAD
                         showHttpResponseError(error);
-=======
-                        System.out.println(error);
-                        //System.out.println("Custom Error response");
->>>>>>> upstream/master
                     }
                 });
 
@@ -92,14 +79,23 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showHttpResponseError(VolleyError error) {
-        Toast.makeText(this, "Status Code (" + error.networkResponse.statusCode + "): Incorrect username or password.", Toast.LENGTH_LONG).show();
+        // If the server could be access, but error code was returned
+        if (error.networkResponse != null) {
+            Toast.makeText(this, "Status Code (" + error.networkResponse.statusCode + "): Incorrect username or password.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            // In case no connection could be established at all (i.e., server is down)
+            Toast.makeText(this, "Could not connect to server.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void doLogin() {
-        // Proceed to HomeActivity
-        // NOTE(timp): I changed this to the HomeActivity because someone
-        //             should be able to log in before clocking in.
         Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    public void goRegister(View view) {
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
 }

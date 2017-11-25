@@ -1,20 +1,6 @@
 // ------------------ //
 // ---DEPENDENCIES--- //
 // ------------------ //
-<<<<<<< HEAD
-var bodyParser      = require("body-parser"),
-    methodOverride  = require("method-override"),
-    mongoose        = require("mongoose"),
-    localStrategy   = require("passport-local"),
-    passport        = require("passport"),
-    flash           = require("connect-flash"),
-    path            = require('path'),
-    multer          = require('multer'),
-    cors            = require('cors'),
-    fs              = require('fs'),
-    morgan          = require('morgan'),
-    express         = require("express");
-=======
 var bodyParser              = require("body-parser"),
     methodOverride          = require("method-override"),
     mongoose                = require("mongoose"),
@@ -27,8 +13,8 @@ var bodyParser              = require("body-parser"),
     fs                      = require('fs'),
     nodemailer              = require("nodemailer"),
     express                 = require("express"),
-    passportLocalMongoose   = require("passport-local-mongoose");
->>>>>>> upstream/master
+    passportLocalMongoose   = require("passport-local-mongoose")
+    morgan                  = require('morgan');
 
 // app setup
 var app = express();
@@ -39,7 +25,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
-<<<<<<< HEAD
 app.use(cors())
 app.use(morgan('dev'))
 
@@ -47,9 +32,6 @@ app.use(morgan('dev'))
 app.use(morgan('combined', {
   stream: fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'})
 }))
-=======
-app.use(cors());
->>>>>>> upstream/master
 
 // ------------------ //
 // -----MONGOOSE----- //

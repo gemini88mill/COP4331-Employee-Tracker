@@ -21,7 +21,12 @@ public class ConnectionHandler {
     private ImageLoader mImageLoader;
     private static Context mCtx;
 
+    // User state
+    static String username;
+    static Boolean clockStatus;
+
     private ConnectionHandler(Context context) {
+        clockStatus = false;
         mCtx = context;
         mRequestQueue = getRequestQueue();
 
