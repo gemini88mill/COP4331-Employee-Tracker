@@ -1,17 +1,19 @@
 // ------------------ //
 // ---DEPENDENCIES--- //
 // ------------------ //
-var bodyParser      = require("body-parser"),
-    methodOverride  = require("method-override"),
-    mongoose        = require("mongoose"),
-    localStrategy   = require("passport-local"),
-    passport        = require("passport"),
-    flash           = require("connect-flash"),
-    path            = require('path'),
-    multer          = require('multer'),
-    cors            = require('cors'),
-    fs              = require('fs'),
-    express         = require("express");
+var bodyParser              = require("body-parser"),
+    methodOverride          = require("method-override"),
+    mongoose                = require("mongoose"),
+    localStrategy           = require("passport-local"),
+    passport                = require("passport"),
+    flash                   = require("connect-flash"),
+    path                    = require('path'),
+    multer                  = require('multer'),
+    cors                    = require('cors'),
+    fs                      = require('fs'),
+    nodemailer              = require("nodemailer"),
+    express                 = require("express"),
+    passportLocalMongoose   = require("passport-local-mongoose");
 
 // app setup
 var app = express();
@@ -21,13 +23,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
-app.use(cors())
+app.use(cors());
 
 // ------------------ //
 // -----MONGOOSE----- //
 // ------------------ //
 mongoose.connect("mongodb://localhost/employeetracker", { useMongoClient: true });
-var Employee    = require("./models/employee");
+var User    = require("./models/user");
 
 
 // ------------------ //
@@ -40,9 +42,9 @@ app.use(require("express-session")({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-// passport.use(new localStrategy(User.authenticate()));
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
@@ -56,12 +58,7 @@ app.use(function(req, res, next) {
 // ------------------ //
 // ------ROUTES------ //
 // ------------------ //
-// var postRoutes      = require("./routes/posts"),
-//     indexRoutes     = require("./routes/index");
-
-// app.use("/", indexRoutes);
-// app.use("/posts", postRoutes);
-app.use('/', require('./routes'))
+app.use('/', require('./routes/index'));
 
 
 app.set('port', process.env.PORT || 3000);
