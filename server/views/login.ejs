@@ -1,0 +1,22 @@
+<% include partials/header %>
+
+<div class = "container-fluid">
+    <br>
+    <h1 class = "text-center">LOG IN</h1>
+    <form action = "/login" method="POST">
+        <div class = "form-group" style="width: 40%; margin: 25px auto;">
+            <label>Username</label>
+            <input class = "form-control" type = "text" name = "username" placeholder = "lknope" autofocus required>
+        </div>
+        <div class="form-group" style="width: 40%; margin: 25px auto;">
+            <label>Password</label>
+            <input type="password" name = "password" class="form-control" placeholder="password" required>
+            <br>
+            <button type="submit" class="btn btn-secondary btn-block">Log In</button>
+        </div>
+    </form>
+</div>
+
+<br>
+
+<% include partials/footer %>

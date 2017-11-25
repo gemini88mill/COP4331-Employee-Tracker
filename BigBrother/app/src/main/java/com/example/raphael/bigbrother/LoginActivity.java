@@ -23,13 +23,24 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
-    public void sendJSONRequest(View view) {
+    public void newUserSignIn(View view){
+        //open new user activity on click event.
+
+        System.out.println("clicked New user button, going to SignIn Activity");
+
+        Intent intent = new Intent(this, SignUpActivity.class);
+        startActivity(intent);
+    }
+
+    public void sendJSONRequest(View view) throws JSONException {
+        System.out.println("Sending JSON...");
         String url = getResources().getString(R.string.loginUrl);
 
-        // Get EditText Values
-        EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
-        EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
-        final String username = usernameTextField.getText().toString().trim();
+        //get EditText Values
+        EditText usernameTextField = findViewById(R.id.usernameField);
+        EditText passwordTextField = findViewById(R.id.passwordField);
+
+        String username = usernameTextField.getText().toString().trim();
         String password = passwordTextField.getText().toString().trim();
 
         // Create body of JSON object to send to Web server

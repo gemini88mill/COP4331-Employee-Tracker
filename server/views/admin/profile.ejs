@@ -1,0 +1,36 @@
+<% include ../partials/header %>
+
+
+<div class="container col-lg-8">
+  <br>
+  <div class="container row">
+    <h3><%= admin.firstName %> <%= admin.lastName %></h3>
+    <a href = "/profile/edit/<%= admin._id %>">
+      <button class = "btn btn-warning btn-sm" style = "transform: translateX(20px);">
+          Edit
+      </button>
+    </a>
+  </div>
+  <br>
+  <br>
+  <div class="container row">
+    <div class="container col-4">
+      <img src="<%= admin.picture %>" class="img-fluid profile-image">
+    </div>
+    <div class="container col-8 row">
+      <div class="container col-1">
+        <div class="row"><b>USERNAME</b></div>
+        <div class="row"><b>EMAIL</b></div>
+        <div class="row"><b>POSITION</b></div>
+      </div>
+      <div class="container col-7">
+        <div class="row"><%= admin.username %></div>
+        <div class="row"><%= admin.email %></div>
+        <div class="row"><span class="badge badge-primary badge-pill"><%= admin.position %></span></div>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+
+<div class="container fluid">
+    <br>
+    <h1 class = "text-center">All Employees</h1>
+    <br>
+  <div class="container row col-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Time of Last Update</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% employees.forEach(function(employee){ %>
+        <tr>
+          <td><%= employee.firstName %></td>
+          <td><%= employee.lastName %></td>
+          <td><a href="/employee/view/<%= employee._id %>"><%= employee.timeLastUpdate %></a></td>
+        </tr>
+        <% }); %>
+      <tbody>
+    </table>
+  </div>
+</div>
+
+<% include ../partials/footer %>
