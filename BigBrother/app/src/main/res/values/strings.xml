@@ -2,7 +2,9 @@
     <string name="app_name">Big Brother</string>
     <string name="username">username</string>
     <string name="password">password</string>
-    <string name="buttonLogin">Submit</string>
+    <string name="buttonLogin">Log in</string>
+    <string name="buttonRegister">Register</string>
+    <string name="buttonSubmit">Submit</string>
     <string name="takePic">Take Picture</string>
     <string name="mapViewButton">Map View</string>
     <string name="taskListView">Task List View</string>
@@ -15,5 +17,21 @@
     <string name="confirmPassLabel">Confirm</string>
     <string name="nameTextArea">Name</string>
     <string name="signInLabel">Sign Up</string>
+    <string name="action_settings">Settings</string>
+    <string name="registerUrl">http://192.168.86.39:3000/employee/register</string>
+    <string name="loginUrl">http://192.168.86.39:3000/employee/login</string>
+    <string name="clockUrl">http://192.168.86.39:3000/employee/clock</string>
+    <string name="uploadUrl">http://192.168.86.39:3000/employee/upload</string>
+    <string name="tasksUrl">http://192.168.86.39:3000/employee/tasks</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="register">Register</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="UsernameLabel">Username</string>
+    <string name="PasswordLabel">Password</string>
+    <string name="re_enter_passwordLabel">Re-enter Password</string>
+    <string name="first_name">First Name</string>
     <string name="newUser">New user Sign In</string>
+    <string name="not_a_member">Not a member?</string>
+    <string name="log_in">Log In</string>
 </resources>

@@ -1,20 +1,15 @@
 package com.example.raphael.bigbrother;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.android.volley.Cache;
-import com.android.volley.Network;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.BasicNetwork;
-import com.android.volley.toolbox.DiskBasedCache;
-import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
@@ -39,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void sendJSONRequest(View view) throws JSONException {
         System.out.println("Sending JSON...");
+        String url = getResources().getString(R.string.loginUrl);
 
         //get EditText Values
         EditText usernameTextField = findViewById(R.id.usernameField);
@@ -47,53 +43,59 @@ public class LoginActivity extends AppCompatActivity {
         String username = usernameTextField.getText().toString().trim();
         String password = passwordTextField.getText().toString().trim();
 
+        // Create body of JSON object to send to Web server
+        final JSONObject body = new JSONObject();
+        try {
+            body.put("username", username);
+            body.put("password", password);
+        } catch (JSONException e) {
+            // TODO: Fallback if username or password cannot be used to create JSON Object
+        }
 
-        RequestQueue mRequestQueue;
-
-        // Instantiate the cache
-        Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
-
-        // Set up the network to use HttpURLConnection as the HTTP client.
-        Network network = new BasicNetwork(new HurlStack());
-
-        // Instantiate the RequestQueue with the cache and network.
-        mRequestQueue = new RequestQueue(cache, network);
-
-        // Start the queue
-        mRequestQueue.start();
-
-        String url ="http://192.168.86.39:3000/api/user/login/";
-        JSONObject body = new JSONObject();
-        body.put("username", username);
-        body.put("password", password);
-
-        // Formulate the request and handle the response.
-        mRequestQueue.add(new JsonObjectRequest
+        // Create a request
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.POST, url, body, new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
                         // Successful login
-                        System.out.println(response);
+                        try {
+                            // Save the user's username for the session
+                            ConnectionHandler.username = body.getString("username");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         doLogin();
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println(error);
-                        //System.out.println("Custom Error response");
+                        showHttpResponseError(error);
                     }
-                }));
+                });
 
-//        System.out.println(mRequestQueue.getCache());
+        // Make the request (add it to the request queue)
+        ConnectionHandler.getInstance(this).addToRequestQueue(jsObjRequest);
+    }
+
+    public void showHttpResponseError(VolleyError error) {
+        // If the server could be access, but error code was returned
+        if (error.networkResponse != null) {
+            Toast.makeText(this, "Status Code (" + error.networkResponse.statusCode + "): Incorrect username or password.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            // In case no connection could be established at all (i.e., server is down)
+            Toast.makeText(this, "Could not connect to server.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void doLogin() {
-        // Proceed to HomeActivity
-        // NOTE(timp): I changed this to the HomeActivity because someone
-        //             should be able to log in before clocking in.
         Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    public void goRegister(View view) {
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
 }

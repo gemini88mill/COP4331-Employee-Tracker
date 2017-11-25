@@ -32,6 +32,9 @@ let userCtrls = {
       })
   },
 
+  // NOTE(timp): econsider using a placeholder image that's the same for everyone
+  // and use a generated image for each letter (first initial) of the user
+  // and make sure that it is capitalized
   view: function($scope, $http, $routeParams) {
     console.log('Loaded user profile controller.')
     // Get user data
@@ -49,9 +52,12 @@ let userCtrls = {
         $scope.picture    = res.data[0].picture || 'img/user_profile_placeholder.png' // Placeholder image in case the use has yet to check in
 
 
-        console.log(res.data[0]);
-        if (res.data[0].locations.length > 0)
-          $scope.location   = res.data[0].locations[0].coordinates
+        console.log(res.data[0].locations[1]);
+
+        if (res.data[0].locations.length > 0) {
+          let mostRecentLocation = res.data[0].locations.length - 1
+          $scope.location   = res.data[0].locations[mostRecentLocation]
+        }
         else
           $scope.location   = res.data[0].locations
 
@@ -132,7 +138,7 @@ let userCtrls = {
           let icon = { url: canvas.toDataURL() }
           var marker = new google.maps.Marker({
             map: $scope.map,
-            title: $scope.username,
+            title: $scope.firstName + ' ' + $scope.lastName,
             icon: icon,
             position: new google.maps.LatLng(info.lat(), info.lng())
           });
@@ -148,7 +154,7 @@ let userCtrls = {
           })
         // Valid GPS coordinates were provided, so display and zoom in
         } else {
-          geocoder.geocode( { 'location': { lat: $scope.location[0], lng: $scope.location[1] } }, function(results, status) {
+          geocoder.geocode( { 'location': $scope.location }, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
               newAddress = results[0].geometry.location;
               $scope.map.setCenter(newAddress);

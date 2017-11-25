@@ -1,16 +1,6 @@
 'use strict'
 var     router      = require('express').Router();
 
-// for testing purposes
-router.use(function(req, res, next) {
-    // do logging
-    // console.log({
-    //   type: req.method,
-    //   headers: req.headers
-    // });
-    next();
-});
-
 // all routes used
 router.use('/login',    require('./login.js'        ));
 router.use('/register', require('./register.js'     ));
