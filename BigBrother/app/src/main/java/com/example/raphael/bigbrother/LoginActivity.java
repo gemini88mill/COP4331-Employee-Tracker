@@ -23,7 +23,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
-    private String url = "http://192.168.86.39:3000/api/user/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,17 +31,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void sendJSONRequest(View view) {
+        String url = getResources().getString(R.string.loginUrl);
+
         // Get EditText Values
         EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
         EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
-        usernameTextField.setText("lknope");
-        passwordTextField.setText("pawneerocks");
-        String username = usernameTextField.getText().toString().trim();
+        final String username = usernameTextField.getText().toString().trim();
         String password = passwordTextField.getText().toString().trim();
 
 
         // Create body of JSON object to send to Web server
-        JSONObject body = new JSONObject();
+        final JSONObject body = new JSONObject();
         try {
             body.put("username", username);
             body.put("password", password);
@@ -56,6 +55,11 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Successful login
+                        try {
+                            ConnectionHandler.username = body.getString("username");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         doLogin();
                     }
                 }, new Response.ErrorListener() {
@@ -82,10 +86,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void doLogin() {
-        // Proceed to HomeActivity
-        // NOTE(timp): I changed this to the HomeActivity because someone
-        //             should be able to log in before clocking in.
         Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+    }
+
+    public void goRegister(View view) {
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
     }
 }

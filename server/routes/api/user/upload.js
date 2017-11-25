@@ -101,10 +101,9 @@ router.post('/', (req, res) => {
     if (err) {
       res.status(500).json({ message: 'Picture NOT changed.', error: err })
     } else {
-      res.status(200).json({ message: 'Picture changed to ' + req.body.picture, data: req.body })
-
       var bitmap = new Buffer(req.body.file, 'base64')
       fs.writeFileSync(fileLocation, bitmap)
+      res.status(200).json({ message: 'Picture changed to ' + req.body.picture, data: req.body })
     }
   })
 

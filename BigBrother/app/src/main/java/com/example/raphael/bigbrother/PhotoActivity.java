@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -43,16 +44,13 @@ import static com.example.raphael.bigbrother.R.id.pictureCapture;
 /**
  * Photo Activity Class - Everything from the photo Activity goes here.
  */
-public class PhotoActivity extends AppCompatActivity implements LocationListener {
+public class PhotoActivity extends AppCompatActivity {
 
     //globals
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView mimageView;
     private String eImage;
-    private LocationManager locationManager;
-    private LocationListener locationListener;
-    private double lat = 0.0;
-    private double lng = 0.0;
+    private LocationHandler locationHandler;
 
     /**
      * onCreate - method to invoke the creation of the new activity
@@ -67,38 +65,7 @@ public class PhotoActivity extends AppCompatActivity implements LocationListener
         Button photoButton = (Button) this.findViewById(R.id.pictureCapture);
         mimageView = (ImageView) findViewById(R.id.imageView);
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-            return;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
-        photoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if(cameraIntent.resolveActivity(getPackageManager()) != null){
-                    startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
-                }
-            }
-        });
-    }
-
-    private void dispatchTakePictureIntent(View v){
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if(takePictureIntent.resolveActivity(getPackageManager()) != null){
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
+        locationHandler = new LocationHandler(this);
     }
 
     @Override
@@ -125,11 +92,11 @@ public class PhotoActivity extends AppCompatActivity implements LocationListener
     }
 
     public void sendpicJSON(View view){
-        String url = "http://192.168.86.39:3000/api/user/upload";
+        String url = getResources().getString(R.string.uploadUrl);
 
         JSONObject body = new JSONObject();
         try {
-            body.put("username", "lknope");
+            body.put("username", ConnectionHandler.username);
             body.put("fileType", "jpg");
             body.put("file", eImage);
         } catch (JSONException e) {
@@ -153,17 +120,17 @@ public class PhotoActivity extends AppCompatActivity implements LocationListener
         // Make the request (add it to the request queue)
         ConnectionHandler.getInstance(this).addToRequestQueue(jsObjRequest);
 
-        url = "http://192.168.86.39:3000/api/user/clock";
+        url = getResources().getString(R.string.clockUrl);
 
         // TODO(timp): guarantee that the GPS coordinates have been collected and assigned before
         // pushing to the database
         body = new JSONObject();
         try {
-            body.put("username", "lknope");
+            body.put("username", ConnectionHandler.username);
             body.put("clockStatus", "true");
             JSONObject locationObj = new JSONObject();
-            locationObj.put("lat", lat);
-            locationObj.put("lng", lng);
+            locationObj.put("lat", LocationHandler.lat);
+            locationObj.put("lng", LocationHandler.lng);
             body.put("location", locationObj);
         } catch (JSONException e) {
 
@@ -174,7 +141,9 @@ public class PhotoActivity extends AppCompatActivity implements LocationListener
                 (Request.Method.PUT, url, body, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // Successful login
+                        // Successful update location
+                        showHttpResponse(response);
+                        goHome();
                     }
                 }, new Response.ErrorListener() {
 
@@ -185,12 +154,6 @@ public class PhotoActivity extends AppCompatActivity implements LocationListener
 
         // Make the request (add it to the request queue)
         ConnectionHandler.getInstance(this).addToRequestQueue(jsObjRequest);
-
-
-
-
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
     }
 
     public String getStringImage(Bitmap bmp){
@@ -200,44 +163,19 @@ public class PhotoActivity extends AppCompatActivity implements LocationListener
         return Base64.encodeToString(imageBytes, Base64.DEFAULT);
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
-//        Toast.makeText(this, "(" + location.getLatitude() + ", " + location.getLongitude() + ")", Toast.LENGTH_LONG).show();
-        lat = location.getLatitude();
-        lng = location.getLongitude();
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-            // other 'case' lines to check for other
-            // permissions this app might request
+    public void dispatchTakePictureIntent(View v){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if(takePictureIntent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
+    }
+
+    private void showHttpResponse(JSONObject response) {
+        Toast.makeText(this, response.toString(), Toast.LENGTH_LONG).show();
+    }
+
+    private void goHome() {
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
     }
 }
