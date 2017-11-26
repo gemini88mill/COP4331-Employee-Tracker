@@ -15,7 +15,17 @@ router.get("/:id", middleware.isAdministrator, function(req, res) {
             res.redirect("task/index");
         }
         else {
-            res.render("task/view", {task: task});
+            
+            // show all level 0 employees
+            Employee.find({ privilege: 0, tasks: req.params.id }, function(err, employees) {
+                if(err) {
+                    console.log("Error getting employees from database.");
+                    return res.redirect('task');
+                }
+                
+                res.render("task/view", {task : task, employees : employees});
+            });
+            
         }
     });
 });

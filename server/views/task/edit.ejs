@@ -21,10 +21,7 @@
                 <% employees.forEach(function(employee){ %>
                     <div>
                         <label class="form-check-label">
-                            <input class = "form-check-input" type="checkbox" name="assignees" value="<%= employee._id %>"
-                            <% if(employee.tasks.indexOf(task._id) !== -1) %>
-                                checked
-                            >
+                            <input class = "form-check-input" type="checkbox" name="assignees[]" value="<%= employee._id %>">
                             <%= employee.firstName %> <%= employee.lastName %>
                         </label>
                     </div>

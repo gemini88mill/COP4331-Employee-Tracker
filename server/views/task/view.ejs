@@ -28,7 +28,11 @@
         <div class="row"><%= task.description %></div>
         <div class="row"><%= task.due %></div>
         <div class="row"><%= task.done %></div>
-        <div class="row">To do</div>
+        <div class="row">
+          <% employees.forEach(function(employee){ %>
+              <%= employee.firstName %> <%= employee.lastName %><br>
+          <% }); %>
+        </div>
       </div>
     </div>
   </div>

@@ -2,6 +2,7 @@
 var     router      = require('express').Router(),
         passport    = require('passport'),
         Employee    = require('../../models/user'),
+        Task        = require('../../models/task'),
         middleware  = require('../middleware');
 
 
@@ -10,7 +11,6 @@ router.get("/:id", middleware.isAdministrator, function(req, res) {
     
     Employee.findById(req.params.id, function(err, employee) {
         if(err) {
-            // if( req.params.id != "bootstrap.min.js")
             console.log("Error retrieving employee with id: " + req.params.id);
             res.redirect("employee/index");
         }
