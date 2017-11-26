@@ -13,17 +13,25 @@ var bodyParser              = require("body-parser"),
     fs                      = require('fs'),
     nodemailer              = require("nodemailer"),
     express                 = require("express"),
-    passportLocalMongoose   = require("passport-local-mongoose");
+    passportLocalMongoose   = require("passport-local-mongoose")
+    morgan                  = require('morgan');
 
 // app setup
 var app = express();
+let accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'})
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
 app.use(flash());
-app.use(cors());
+app.use(cors())
+app.use(morgan('dev'))
+
+// log all requests to access.log
+app.use(morgan('combined', {
+  stream: fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'})
+}))
 
 // ------------------ //
 // -----MONGOOSE----- //
