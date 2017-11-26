@@ -16,9 +16,9 @@
       <tbody>
         <% employees.forEach(function(employee){ %>
         <tr>
-          <td><%= employee.firstName %></td>
+          <td><a href="/employee/view/<%= employee._id %>"> <%= employee.firstName %></a></td>
           <td><%= employee.lastName %></td>
-          <td><a href="/employee/view/<%= employee._id %>"><%= employee.timeLastUpdate %></a></td>
+          <td><%= employee.timeLastUpdate %></td>
         </tr>
         <% }); %>
       <tbody>

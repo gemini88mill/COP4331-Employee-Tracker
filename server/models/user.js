@@ -80,6 +80,12 @@ var userSchema = new mongoose.Schema( {
     
     timeLastUpdate:     Date, // time of last GPS update
     
+    clockStatus: {
+      
+                    type: Boolean,
+                    default: false
+                },
+    
     indexOfLastTime: {
                     type:       Number,
                     default:    0

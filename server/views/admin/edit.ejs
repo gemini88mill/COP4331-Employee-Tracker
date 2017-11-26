@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 
-<div class = "container-fluid">
+<div class = "container">
     <br>
     <h1 class = "text-center">EDIT PROFILE</h1>
     <form action = "/profile/edit/<%= admin._id %>?_method=PUT" method="POST">
@@ -18,7 +18,11 @@
         </div>
         <div class = "form-group" style="width: 40%; margin: 25px auto;">
             <label>Job Position</label>
-            <input class = "form-control" type = "text" placeholder="Deputy Director of the Parks and Recreation Department" name = "position">
+            <input class = "form-control" type = "text" value="<%= admin.email %>" placeholder="Deputy Director of the Parks and Recreation Department" name = "position">
+        </div>
+        <div class = "form-group" style="width: 40%; margin: 25px auto;">
+            <label>Profile Picture</label>
+            <input class = "form-control" type = "text" value="<%= admin.picture %>"  name = "picture">
         </div>
         <div class = "form-group" style="width: 40%; margin: 25px auto;">
             <label>Username</label>

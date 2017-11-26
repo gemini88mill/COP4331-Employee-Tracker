@@ -16,16 +16,20 @@
             <label>Due Date</label>
             <input class = "form-control" type = "date" name = "task[due]" min="2017-11-24" required>
         </div>
-        <div class="form-group" style="width: 50%; margin: 25px auto;">
+        <div class="form-check" style="width: 50%; margin: 25px auto;">
             <label>Assign to Employees</label>
-                <select id="dates-field2" class="multiselect-ui form-control" multiple="multiple">
-                    <% employees.forEach(function(employee){ %>
-                    <option value="<%= employee._id %>"><%= employee.firstName %> <%= employee.lastName %></option>
-                    <% }); %>
-                </select>
+                <% employees.forEach(function(employee){ %>
+                    <div>
+                        <label class="form-check-label">
+                            <input class = "form-check-input" type="checkbox" name="assignees" value="<%= employee._id %>">
+                            <%= employee.firstName %> <%= employee.lastName %>
+                        </label>
+                    </div>
+                <% }); %>
             <br>
             <button type="submit" class="btn btn-secondary btn-block">Submit</button>
         </div>
+
     </form>
 </div>
 

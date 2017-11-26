@@ -1,6 +1,7 @@
 'use strict'
 var     router      = require('express').Router(),
         passport    = require('passport'),
+        nodemailer  = require('nodemailer'),
         Employee    = require('../../models/user'),
         Task        = require('../../models/task'),
         middleware  = require('../middleware');
@@ -36,6 +37,7 @@ router.post("/", middleware.isAdministrator, function(req, res) {
       else {
           console.log("New task created.");
           
+          console.log(req.body.assignees);
           // TODO: When task is assigned, send email to assignees notifying them.
           // TODO: When task is assigned, add to designated employees' task list.
           
