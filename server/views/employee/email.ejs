@@ -1,0 +1,28 @@
+<% include ../partials/header %>
+
+<div class = "container-fluid">
+    <br>
+    <h1 class = "text-center">SEND MESSAGE</h1>
+    <form action = "/employee/email/" method="POST">
+        <div class = "form-group" style="width: 50%; margin: 25px auto;">
+            <label>Message</label>
+            <textarea class="form-control" name = "message" rows="5" placeholder = "We need to think of new jokes to make about Eagletonians!" required></textarea>
+        </div>
+        <div class="form-check" style="width: 50%; margin: 25px auto;">
+            <label>Send to Employees</label>
+                <% employees.forEach(function(employee){ %>
+                    <div>
+                        <label class="form-check-label">
+                            <input class = "form-check-input" type="checkbox" name="assignees[]" value="<%= employee._id %>">
+                            <%= employee.firstName %> <%= employee.lastName %>
+                        </label>
+                    </div>
+                <% }); %>
+            <br>
+            <button type="submit" class="btn btn-secondary btn-block">Submit</button>
+        </div>
+
+    </form>
+</div>
+
+<% include ../partials/footer %>

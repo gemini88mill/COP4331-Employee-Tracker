@@ -13,7 +13,7 @@ var bodyParser              = require("body-parser"),
     fs                      = require('fs'),
     nodemailer              = require("nodemailer"),
     express                 = require("express"),
-    passportLocalMongoose   = require("passport-local-mongoose")
+    passportLocalMongoose   = require("passport-local-mongoose"),
     morgan                  = require('morgan');
 
 // app setup

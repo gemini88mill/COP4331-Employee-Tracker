@@ -19,4 +19,13 @@ middlewareObj.isAdministrator = function(req, res, next) {
     res.redirect("/register");
 };
 
+middlewareObj.isSupport = function(req, res, next) {
+    
+    if(req.isAuthenticated() && req.user.privilege === 2) {
+        return next();
+    }
+    req.flash("error", "You must be a support team member to do that.");
+    res.redirect('back'); 
+};
+
 module.exports = middlewareObj;

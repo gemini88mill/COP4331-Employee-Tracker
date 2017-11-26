@@ -97,7 +97,7 @@ router.post('/', (req, res) => {
   let fileName = (new Date) + '.' + req.body.fileType
   let fileLocation = path.join(dir, fileName)
 
-  Employee.findOneAndUpdate( { username: req.body.username }, { picture: path.join('img', 'uploads', req.body.username, fileName) }, {upsert: true}, (err, user) => {
+  User.findOneAndUpdate( { username: req.body.username }, { picture: path.join('img', 'uploads', req.body.username, fileName) }, {upsert: true}, (err, user) => {
     if (err) {
       res.status(500).json({ message: 'Picture NOT changed.', error: err })
     } else {

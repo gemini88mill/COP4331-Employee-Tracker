@@ -7,13 +7,15 @@ var     router      = require('express').Router();
 
 // THESE ROUTES DO NOT REQUIRE AUTHENTICATION MIDDLEWARE
 // employee clock-in and picture upload routes
-router.use('/clock',    require('./clock.js'    ));
-router.use('/upload',   require('./upload.js'   ));
-router.use('/register', require('./register.js' ));
+router.use('/clock',    require('./clock.js'    )); // employee clock in
+router.use('/upload',   require('./upload.js'   )); // upload employee picture ?
+router.use('/register', require('./register.js' )); // register employee
+router.use('/update',   require('./update.js'   )); // update employee info (location, tasks, profile)
 
 // THESE ROUTES DO
-// employee list/singular view routes (cannot edit or delete employees)
+// employee list/singular view routes, and email routes
 router.use('/',         require('./list.js'     ));
 router.use('/view',     require('./view.js'     ));
+router.use('/email',    require('./email.js'    ));
 
 module.exports = router;

@@ -47,6 +47,8 @@ router.post("/", middleware.isAdministrator, function(req, res) {
                 }
             });
             
+            req.body.asssignees.push(req.user._id); // add assigning admin to list
+            
             // go through list of selected assignees, add task to list
             req.body.assignees.forEach(function(assignee) {
                
@@ -67,7 +69,6 @@ router.post("/", middleware.isAdministrator, function(req, res) {
                             from: 'Big Brother Employee Tracker <bigbrothertracker@gmail.com>',
                             
                             // Comma separated list of recipients
-                            // TODO: Make this so that it sends to all employees selected
                             to: '"' + employee.firstName + ' ' + employee.lastName + '" <' + employee.email + '>',
                             
                             // Subject of the message
@@ -88,11 +89,13 @@ router.post("/", middleware.isAdministrator, function(req, res) {
                                      '<p><b>DUE DATE</b> ' + task.due + '</p>',
                         };
                         
-                        // email employee with task update
-                        smtpTransport.sendMail(message, function(error){
-                            if(error)
-                                console.log('Error occured sending email: ' + error + ".");
-                        });
+                        // email level 0 employees with task update
+                        if(employee.privilege === 0) {
+                            smtpTransport.sendMail(message, function(error){
+                                if(error)
+                                    console.log('Error occured sending email: ' + error + ".");
+                            });
+                        }
                     }
                 });
                 

@@ -17,8 +17,15 @@
           </button>
             <div class = "collapse navbar-collapse">
                 <ul class = "nav navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href = "/employee">Employees</a>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="/employee" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Employees
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/employee/">View All Employees</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/employee/email">Send Message</a>
+                      </div>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -30,16 +37,16 @@
                         <a class="dropdown-item" href="/task/">View All Tasks</a>
                       </div>
                     </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Teams
-                      </a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/team/create">Create Team</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/team/">View All Teams</a>
-                      </div>
-                    </li>
+                    <!--<li class="nav-item dropdown">-->
+                    <!--  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                    <!--    Teams-->
+                    <!--  </a>-->
+                    <!--  <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+                    <!--    <a class="dropdown-item" href="/team/create">Create Team</a>-->
+                    <!--    <div class="dropdown-divider"></div>-->
+                    <!--    <a class="dropdown-item" href="/team/">View All Teams</a>-->
+                    <!--  </div>-->
+                    <!--</li>-->
                 </ul>
                 <ul class = "nav navbar-nav ml-auto">
                     <% if(!currentUser){ %>
