@@ -1,5 +1,5 @@
 <% include ../partials/header %>
-
+<base href="/">
 <div class="container">
   <br>
   <div class="container row">
@@ -21,7 +21,7 @@
   <br>
   <div class="container row">
     <div class="container col-4">
-      <img src="http://localhost:3000/<%= employee.picture %>" class="img-fluid profile-image">
+      <img src="<%= employee.picture %>" class="img-fluid profile-image">
     </div>
     <div class="container col-8 row">
       <div class="container col-1">
@@ -65,9 +65,113 @@
         </div>
         <br>
       <% }); %>
-      
+
     </div>
   </div>
 </div>
+<script type="text/javascript">
+
+    var loadMap = function()
+    {
+        let imageObj = new Image,
+        canvas = document.createElement('canvas'),
+        context = canvas.getContext('2d'),
+        src = '<%= employee.picture %>',
+        gMap = document.getElementById('map');
+
+        const pinColor = '#9132FB'
+
+        canvas.setAttribute('height', 57)
+        canvas.setAttribute('width', 46)
+        imageObj.src = src
+
+        imageObj.onload = () => {
+          // Draw the border
+          // <!-- Purcple Circle (marker) -->
+          context.beginPath()
+          context.arc(23, 23, 22, 0, 2 * Math.PI)
+          context.lineWidth = 1
+          context.strokeStyle = pinColor
+          context.stroke()
+          context.fillStyle = pinColor
+          context.fill()
+
+
+          // <!-- Bottom part of Marker  -->
+          context.beginPath();
+          context.lineWidth = 4
+          context.moveTo(7, 36)
+          context.lineTo(23, 55)
+          context.lineTo(39, 36)
+          context.lineWidth = 4
+          context.lineJoin = 'round'
+          context.strokeStyle = pinColor
+          context.stroke()
+          context.fillStyle = pinColor
+          context.fill()
+          context.closePath()
+
+          // <!-- White Circle -->
+          context.beginPath()
+          context.arc(23, 23, 18, 0, 2 * Math.PI)
+          context.fillStyle = 'white'
+          context.fill()
+
+
+          // <!-- Display Picture -->
+          context.save();
+          context.beginPath()
+          context.arc(23, 23, 16, 0, Math.PI * 2, true)
+          context.closePath()
+          context.clip()
+
+          // <!-- Place Image -->
+          let smallerBoundary = Math.min(imageObj.width, imageObj.height)
+          let startx = 0,
+              starty = 0
+          if (imageObj.width > imageObj.height)
+            startx = (imageObj.width - smallerBoundary) / 2 // Centers the focus of a horizontally wide picture
+          if (imageObj.width < imageObj.height)
+            starty = (imageObj.height - smallerBoundary) / 2 // Center the focus of a vertically long picture
+          context.drawImage(imageObj, startx, starty, smallerBoundary, smallerBoundary, 0, 0, 50, 50)
+          context.lineWidth = 1
+          context.strokeStyle = 'white'
+          context.stroke()
+          context.restore()
+        }
+        imageObj.src = src
+
+        var geocoder = new google.maps.Geocoder();
+        let loc = new google.maps.LatLng(<%= employee.location.lat %>, <%= employee.location.lng %>)
+
+        var myOptions = {
+          center: new google.maps.LatLng(<%= employee.location.lat %>, <%= employee.location.lng %>),
+          zoom: 6,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map"),
+            myOptions);
+
+          var createMarker = function (info) {
+            let icon = { url: canvas.toDataURL() }
+            console.log(icon);
+            var marker = new google.maps.Marker({
+              map: map,
+              title: '<%= employee.firstName %> <%= employee.lastName %>',
+              icon: icon,
+              position: loc
+            });
+          }
+        geocoder.geocode( {location : loc} , function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            newAddress = results[0].geometry.location;
+            map.setCenter(newAddress);
+            map.setZoom(11)
+            createMarker(newAddress)
+          }
+        })
+    }
+</script>
+<script id="gmapsapi" async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMmizdLgDclC7u-cqYFP1pD12hq6rpFLA&callback=loadMap"></script>
 
 <% include ../partials/footer %>
