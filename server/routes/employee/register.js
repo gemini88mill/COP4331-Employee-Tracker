@@ -16,7 +16,7 @@ router.post("/", function(req, res) {
         // if failure, display flash message and redirect; exit method
         if(err) {
             console.log("Error creating new user: " + err);
-             res.json({
+             return res.status(500).json({
                  type: 'POST',
                  message: 'Error registering new employee.',
                  receivedData: req.body
