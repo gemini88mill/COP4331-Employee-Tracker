@@ -47,7 +47,7 @@ router.post("/", middleware.isAdministrator, function(req, res) {
                 }
             });
             
-            req.body.asssignees.push(req.user._id); // add assigning admin to list
+            req.body.assignees.push(req.user._id); // add assigning admin to list
             
             // go through list of selected assignees, add task to list
             req.body.assignees.forEach(function(assignee) {

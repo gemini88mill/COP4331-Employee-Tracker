@@ -14,7 +14,20 @@ router.get("/", function(req, res) {
 // registration post route (submit form and create account)
 router.post("/", function(req, res) {
     
-    var newAdmin = new User ({username: req.body.username, privilege: 1, firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email});
+    var priv = 1;
+    
+    // if database is empty, there are no other users; make a support super user as first account
+    User.find({}).toArray(function(err, user) {
+        if (err) console.log(err);
+        
+        if (!user)
+            priv = 2;
+        
+        if (user)
+            priv = 1;
+    });
+    
+    var newAdmin = new User ({username: req.body.username, privilege: priv, firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email});
 
     var smtpTransport = nodemailer.createTransport({
         service: "gmail",
