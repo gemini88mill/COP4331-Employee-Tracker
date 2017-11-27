@@ -11,7 +11,6 @@ router.use('/clock',    require('./clock.js'    )); // employee clock in
 router.use('/upload',   require('./upload.js'   )); // upload employee picture ?
 router.use('/login',    require('./login.js'    )); // upload employee picture ?
 router.use('/register', require('./register.js' )); // register employee
-router.use('/update',   require('./update.js'   )); // update employee info (location, tasks, profile)
 router.use('/tasks',    require('./task.js'     )); // task editing and listing
 
 // THESE ROUTES DO
