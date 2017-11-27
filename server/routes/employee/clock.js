@@ -6,9 +6,8 @@ const router   = require('express').Router(),
 // Clock in/out
 router.put('/', (req, res) => {
   'use strict'
-  let coordinates = [req.body.location.lat, req.body.location.lng]
-console.log(coordinates);
-  User.findOneAndUpdate( { username: req.body.username }, { clockStatus: req.body.clockStatus, $push: { 'locations': { 'coordinates': coordinates } } }, {upsert: true}, (err, user) => {
+  console.log(req.body.location);
+  User.findOneAndUpdate( { username: req.body.username }, { clockStatus: req.body.clockStatus, location: req.body.location }, {upsert: true}, (err, user) => {
     if (err) {
       res.status(500).json({ message: 'Clock status NOT changed.', error: err })
     } else {
