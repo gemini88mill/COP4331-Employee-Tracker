@@ -71,10 +71,8 @@ var userSchema = new mongoose.Schema( {
     position:   String,
 
     location:   {
-                    type: {
-                        lat: Number,
-                        lng: Number
-                    }
+                    lat: Number,
+                    lng: Number
                 },
 
     timeLastUpdate:     Date, // time of last GPS update
