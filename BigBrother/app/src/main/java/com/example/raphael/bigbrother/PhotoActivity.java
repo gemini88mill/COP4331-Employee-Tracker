@@ -136,7 +136,7 @@ public class PhotoActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Successful update location
-                        showHttpResponse(response);
+//                        showHttpResponse(response);
                         ConnectionHandler.user.clockStatus = true;
                         goHome();
                     }
