@@ -4,6 +4,18 @@
   <br>
   <div class="container row">
     <h3><%= employee.firstName %> <%= employee.lastName %></h3>
+    <% if(currentUser.privilege == 2){ %>
+            <a href = "/employee/edit/<%= employee._id %>">
+                <button class = "btn btn-warning btn-sm" style = "transform: translateX(20px);">
+                    Edit
+                </button>
+            </a>
+            <form style = "display: inline;" action="/employee/delete/<%= employee._id %>?_method=DELETE" method="POST">
+                <button class = "btn btn-danger btn-sm" style = "transform: translateX(40px);">
+                    Delete
+                </button>
+            </form>
+        <% } %>
   </div>
   <br>
   <br>

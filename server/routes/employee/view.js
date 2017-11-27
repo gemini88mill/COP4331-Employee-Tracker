@@ -15,7 +15,15 @@ router.get("/:id", middleware.isAdministrator, function(req, res) {
             res.redirect("employee/index");
         }
         else {
-            res.render("employee/view", {employee: employee});
+            // if the user is a support user viewing an admin or employee, or is an admin user
+            // viewing an employee, render the page; otherwise, log an error and redirect
+            if((req.user.privilege === 1 && employee.privilege === 0) || (req.user.privilege === 2 && employee.privilege < 2))
+                res.render("employee/view", {employee: employee});
+            
+            else {
+                console.log("User " + req.user.username + " attempted to access employee page at incorrect privilege level.");
+                res.redirect('back');
+            }
         }
     });
 });

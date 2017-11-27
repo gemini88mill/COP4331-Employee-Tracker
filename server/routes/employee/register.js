@@ -7,16 +7,15 @@ var     router      = require('express').Router(),
 // registration post route (take JSON and create account); /employee/register url
 router.post("/", function(req, res) {
 
-    // TODO: Properly parse JSON from mobile app to create new user
     var newEmployee = new Employee ({username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email});
 
     // create a new user, saving the hashed password instead of the password
-    Employee.register(newEmployee, req.body.password, function(err) {
+    Employee.register(newEmployee, req.body.password, function(err, user) {
 
-        // if failure, display flash message and redirect; exit method
+        // if failure, send failure JSON
         if(err) {
             console.log("Error creating new user: " + err);
-             res.json({
+             return res.status(500).json({
                  type: 'POST',
                  message: 'Error registering new employee.',
                  receivedData: req.body

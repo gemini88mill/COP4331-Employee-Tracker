@@ -70,12 +70,11 @@ var userSchema = new mongoose.Schema( {
     
     position:   String,
     
-    locations:  {
-                    type: [{
+    location:   {
+                    type: {
                         lat: [Number],
                         long: [Number]
-                    }],
-                    validate: [arrayLimit, '{PATH} exceeds the limit of 5']
+                    },
                 },
     
     timeLastUpdate:     Date, // time of last GPS update
@@ -86,10 +85,7 @@ var userSchema = new mongoose.Schema( {
                     default: false
                 },
     
-    indexOfLastTime: {
-                    type:       Number,
-                    default:    0
-                }
+
 });
 
 

@@ -20,4 +20,9 @@ router.use('/',         require('./list.js'     ));
 router.use('/view',     require('./view.js'     ));
 router.use('/email',    require('./email.js'    ));
 
+
+// SUPPORT USER ONLY ROUTES; only support can delete and edit employees
+router.use('/delete',   require('./delete.js'   ));
+router.use('/edit',     require('./edit.js'     ));
+
 module.exports = router;
