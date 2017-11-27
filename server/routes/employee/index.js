@@ -10,12 +10,16 @@ var     router      = require('express').Router();
 router.use('/clock',    require('./clock.js'    )); // employee clock in
 router.use('/upload',   require('./upload.js'   )); // upload employee picture ?
 router.use('/register', require('./register.js' )); // register employee
-router.use('/update',   require('./update.js'   )); // update employee info (location, tasks, profile)
 
 // THESE ROUTES DO
 // employee list/singular view routes, and email routes
 router.use('/',         require('./list.js'     ));
 router.use('/view',     require('./view.js'     ));
 router.use('/email',    require('./email.js'    ));
+
+
+// SUPPORT USER ONLY ROUTES; only support can delete and edit employees
+router.use('/delete',   require('./delete.js'   ));
+router.use('/edit',     require('./edit.js'     ));
 
 module.exports = router;

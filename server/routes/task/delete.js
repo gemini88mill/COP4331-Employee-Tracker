@@ -21,7 +21,6 @@ router.delete("/:id", middleware.isAdministrator, function(req, res) {
        }
    });
    
-   // TODO: See if task is automatically removed from lists of tasks assigned to employee. If not, update.
 });
 
 module.exports = router;

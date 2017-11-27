@@ -17,17 +17,19 @@ router.post("/", function(req, res) {
     var priv = 1;
     
     // if database is empty, there are no other users; make a support super user as first account
-    User.find({}).toArray(function(err, user) {
-        if (err) console.log(err);
+    User.find({}, function(err, users) {
         
-        if (!user)
+        if (err)
+            console.log(err);
+        
+        if (users.length == 0)
             priv = 2;
-        
-        if (user)
-            priv = 1;
+            
+        // else do nothing (keep privilege at 1)
     });
     
-    var newAdmin = new User ({username: req.body.username, privilege: priv, firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email});
+    
+    var newAdmin = new User ({username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email});
 
     var smtpTransport = nodemailer.createTransport({
         service: "gmail",
@@ -39,7 +41,7 @@ router.post("/", function(req, res) {
     });
 
     // create a new user, saving the hashed password instead of the password
-    User.register(newAdmin, req.body.password, function(err) {
+    User.register(newAdmin, req.body.password, function(err, user) {
         
         // if failure, display flash message and redirect; exit method
         if(err) {
@@ -84,6 +86,8 @@ router.post("/", function(req, res) {
             smtpTransport.close(); // close the connection pool
             
             passport.authenticate("local")(req, res, function() {
+                user.privilege = 0;
+                user.save();
                 console.log("New admin user created: " + newAdmin.username + ", " + newAdmin.firstName + " " + newAdmin.lastName + ".");
                 req.flash("success", "Successfully registered. Welcome " + newAdmin.firstName + ".");
                 res.redirect("/");
