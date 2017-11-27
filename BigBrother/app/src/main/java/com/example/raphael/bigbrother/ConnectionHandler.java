@@ -20,13 +20,10 @@ public class ConnectionHandler {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
-
-    // User state
-    static String username;
-    static Boolean clockStatus;
+    public static User user;
 
     private ConnectionHandler(Context context) {
-        clockStatus = false;
+        user = new User();
         mCtx = context;
         mRequestQueue = getRequestQueue();
 
@@ -69,5 +66,12 @@ public class ConnectionHandler {
 
     public ImageLoader getImageLoader() {
         return mImageLoader;
+    }
+
+    class User {
+        public String username;
+        public Boolean clockStatus;
+
+        public User() { this.clockStatus = false; }
     }
 }
