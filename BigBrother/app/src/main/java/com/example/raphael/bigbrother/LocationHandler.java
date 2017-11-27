@@ -69,7 +69,7 @@ public class LocationHandler extends AppCompatActivity implements LocationListen
     @Override
     public void onLocationChanged(Location location) {
         // If it has been five minutes since last update, do so.
-        if (System.currentTimeMillis() - time > 3000 && ConnectionHandler.user != null && ConnectionHandler.user.clockStatus) {
+        if (System.currentTimeMillis() - time > 300000 && ConnectionHandler.user != null && ConnectionHandler.user.clockStatus) {
             time = System.currentTimeMillis();
         // Update the last known location for the user
             lat = location.getLatitude();
