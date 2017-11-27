@@ -15,19 +15,11 @@ router.post("/", function(req, res) {
         // if failure, send failure JSON
         if(err) {
             console.log("Error creating new user: " + err);
-<<<<<<< HEAD
-            res.json({
-                type: 'POST',
-                message: 'Error registering new employee.',
-                receivedData: req.body
-            });
-=======
              return res.status(500).json({
                  type: 'POST',
                  message: 'Error registering new employee.',
                  receivedData: req.body
              });
->>>>>>> a8cc1fe2941abb737d37de10bcf5f8cb2215d423
         }
 
         // if success, create account, flash, log to console
