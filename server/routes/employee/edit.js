@@ -27,7 +27,7 @@ router.get("/:id", middleware.isSupport, function(req, res) {
 router.put("/:id", middleware.isSupport, function(req, res) {
     
     // find admin document with unique username, submit changes, redirect to profile page
-    Employee.findByIdAndUpdate(req.params.id, {firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, position: req.body.position}, function(err, employee) {
+    Employee.findByIdAndUpdate(req.params.id, {firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, position: req.body.position, picture: req.body.picture }, function(err, employee) {
         if(err) {
             console.log("Unable to update employee with id " + req.params.id + ", error: " + err + ".");
             req.flash("error", "Unable to update employee, please try again later.");
