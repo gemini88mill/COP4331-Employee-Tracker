@@ -16,11 +16,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
+    public static LocationHandler locationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        locationHandler = new LocationHandler(this);
     }
 
     public void newUserSignIn(View view){
@@ -85,12 +87,12 @@ public class LoginActivity extends AppCompatActivity {
         }
         else {
             // In case no connection could be established at all (i.e., server is down)
-            Toast.makeText(this, "Could not connect to server.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Could not connect to server. Error: " + error.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
     public void doLogin() {
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, PhotoActivity.class);
         startActivity(intent);
     }
 

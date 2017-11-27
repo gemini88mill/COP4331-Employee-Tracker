@@ -14,13 +14,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HomeActivity extends AppCompatActivity {
-    public static LocationHandler locationHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        locationHandler = new LocationHandler(this);
     }
 
     public void onTaskListClick(View view){
@@ -47,9 +45,9 @@ public class HomeActivity extends AppCompatActivity {
     public void onSignOutClick(View view){
         System.out.println("back to start");
         sendClockOutStatus();
-        locationHandler.locationManager.removeUpdates(locationHandler); // TODO(timp): stop listening for changes in position after logging off
-        locationHandler.locationManager = null;
-        locationHandler = null;
+        LocationHandler.locationManager.removeUpdates(LoginActivity.locationHandler); // TODO(timp): stop listening for changes in position after logging off
+        LocationHandler.locationManager = null;
+        LoginActivity.locationHandler = null;
 
 
         Intent intent = new Intent(this, LoginActivity.class);
