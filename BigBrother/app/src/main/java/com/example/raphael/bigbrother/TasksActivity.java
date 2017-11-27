@@ -185,7 +185,7 @@ public class TasksActivity extends AppCompatActivity {
 
             layout.addView(textLabel);
             layout.addView(dueDate);
-            layout.addView(statusLabel);
+//            layout.addView(statusLabel);
             layout.addView(description);
             layout.addView(completeButton);
         }
