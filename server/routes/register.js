@@ -86,7 +86,7 @@ router.post("/", function(req, res) {
             smtpTransport.close(); // close the connection pool
             
             passport.authenticate("local")(req, res, function() {
-                user.privilege = 0;
+                user.privilege = priv;
                 user.save();
                 console.log("New admin user created: " + newAdmin.username + ", " + newAdmin.firstName + " " + newAdmin.lastName + ".");
                 req.flash("success", "Successfully registered. Welcome " + newAdmin.firstName + ".");
