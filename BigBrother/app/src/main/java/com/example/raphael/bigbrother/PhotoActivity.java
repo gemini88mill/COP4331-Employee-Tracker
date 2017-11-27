@@ -93,7 +93,7 @@ public class PhotoActivity extends AppCompatActivity {
 
         JSONObject body = new JSONObject();
         try {
-            body.put("username", ConnectionHandler.username);
+            body.put("username", ConnectionHandler.user.username);
             body.put("fileType", "jpg");
             body.put("file", eImage);
         } catch (JSONException e) {
@@ -123,7 +123,7 @@ public class PhotoActivity extends AppCompatActivity {
         // pushing to the database
         body = new JSONObject();
         try {
-            body.put("username", ConnectionHandler.username);
+            body.put("username", ConnectionHandler.user.username);
             body.put("clockStatus", "true");
             body.put("location", LocationHandler.getCoordinates());
         } catch (JSONException e) {
@@ -137,7 +137,7 @@ public class PhotoActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // Successful update location
                         showHttpResponse(response);
-                        ConnectionHandler.clockStatus = true;
+                        ConnectionHandler.user.clockStatus = true;
                         goHome();
                     }
                 }, new Response.ErrorListener() {

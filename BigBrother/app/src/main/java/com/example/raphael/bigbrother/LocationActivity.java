@@ -31,7 +31,7 @@ public class LocationActivity extends FragmentActivity implements OnMapReadyCall
          LatLng location = LocationHandler.getLastKnownLocation();
         mMap.addMarker(new MarkerOptions()
                 .position(location)
-                .title(ConnectionHandler.username)
+                .title(ConnectionHandler.user.username)
                 // NOTE(timp): Placeholder to see if we can get the icon of the user instead
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(location));

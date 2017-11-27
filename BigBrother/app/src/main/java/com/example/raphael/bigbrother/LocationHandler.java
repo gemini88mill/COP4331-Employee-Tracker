@@ -67,7 +67,7 @@ public class LocationHandler extends AppCompatActivity implements LocationListen
     @Override
     public void onLocationChanged(Location location) {
         // If it has been five minutes since last update, do so.
-        if (System.currentTimeMillis() - time > 300000 && ConnectionHandler.clockStatus) {
+        if (System.currentTimeMillis() - time > 300000 && ConnectionHandler.user.clockStatus) {
             time = System.currentTimeMillis();
         // Update the last known location for the user
             lat = location.getLatitude();
@@ -75,10 +75,10 @@ public class LocationHandler extends AppCompatActivity implements LocationListen
             // Create a request
             final JSONObject body = new JSONObject();
             try {
-                body.put("username", ConnectionHandler.username);
+                body.put("username", ConnectionHandler.user.username);
                 body.put("location", getCoordinates());
             } catch (JSONException e) {}
-            String url = "http://192.168.86.39:3000/employee/clock";
+            String url = getResources().getString(R.string.clockUrl);
             JsonObjectRequest jsObjRequest = new JsonObjectRequest
                     (Request.Method.PUT, url, body, new Response.Listener<JSONObject>() {
                         @Override

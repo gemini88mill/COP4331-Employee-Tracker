@@ -3,6 +3,7 @@ package com.example.raphael.bigbrother;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,6 +23,8 @@ import java.util.Date;
 
 public class TasksActivity extends AppCompatActivity {
     private ArrayList<Task> tasks;
+    JsonObjectRequest jsObjRequest;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +32,16 @@ public class TasksActivity extends AppCompatActivity {
 
         // Get tasks
         tasks = new ArrayList<Task>();
-        getTasks();
+        try {
+            getTasks();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(tasks.toString());
 
         // Populate view
-        // TODO(timp): Employee-task route does not exist yet
-        LinearLayout layout = (LinearLayout) findViewById(R.id.taskLayout);
+        LinearLayout layout = findViewById(R.id.taskLayout);
 
         for (Task task : tasks) {
             TextView textLabel = new TextView(this);
@@ -44,6 +52,34 @@ public class TasksActivity extends AppCompatActivity {
             layout.addView(description);
             Button completeButton = new Button(this);
             completeButton.setText(task.done);
+//            completeButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    String url = getResources().getString(R.string.tasksUrl);
+//                    // Create body of JSON object to send to Web server
+//                    JSONObject body = new JSONObject();
+//                    try {
+//                        body.put("_id", "sfdsf");
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    // Create a request
+//                    jsObjRequest = new JsonObjectRequest
+//                            (Request.Method.POST, url, body, new Response.Listener<JSONObject>() {
+//                                @Override
+//                                public void onResponse(JSONObject response) {
+//                                    // Successful update of task
+//                                }
+//                            }, new Response.ErrorListener() {
+//                                @Override
+//                                public void onErrorResponse(VolleyError error) {}
+//                            });
+//
+//                    // Make the request (add it to the request queue)
+//                    ConnectionHandler.getInstance(this).addToRequestQueue(jsObjRequest);
+//                }
+//            });
             layout.addView(completeButton);
             TextView dueDate = new TextView(this);
             dueDate.setText(task.due);
@@ -51,42 +87,26 @@ public class TasksActivity extends AppCompatActivity {
         }
     }
 
-    private void getTasks() {
-        // Placeholder
-        Task task = new Task("Task 1", "I'm a placeholder task", "2017-12-01", "false");
-        tasks.add(task);
-
-        // TODO(timp): Once route is created, update the URL
+    private void getTasks() throws JSONException{
+        // Get all of the tasks associated with the user
         String url = getResources().getString(R.string.tasksUrl);
+        final ArrayList<String> taskIds = new ArrayList<String>();
 
         // Create body of JSON object to send to Web server
-        final JSONObject body = new JSONObject();
-        try {
-            body.put("username", ConnectionHandler.username);
-        } catch (JSONException e) {
-            // TODO: Fallback if username or password cannot be used to create JSON Object
-        }
+        JSONObject body = new JSONObject();
+        body.put("username", ConnectionHandler.user.username);
 
         // Create a request
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+        jsObjRequest = new JsonObjectRequest
                 (Request.Method.POST, url, body, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Successful fetch of tasks
-                        String name = new String();
-                        String description = new String();
-                        String due = new String();
-                        String done = new String();
                         try {
-                            name = response.getString("name");
-                            description = response.getString("description");
-                            due = response.getString("due");
-                            done = response.getString("done");
+                            taskIds.add(response.getString("_id"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Task tmpTask = new Task(name, description, due, done);
-                        tasks.add(tmpTask);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -95,6 +115,38 @@ public class TasksActivity extends AppCompatActivity {
 
         // Make the request (add it to the request queue)
         ConnectionHandler.getInstance(this).addToRequestQueue(jsObjRequest);
+
+
+        // Get information on the tasks
+        for (String id : taskIds) {
+            url = getResources().getString(R.string.tasksUrl) + "/" + id;
+            jsObjRequest = new JsonObjectRequest
+                    (Request.Method.POST, url, body, new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            // Successful fetch of tasks
+                            String name = new String();
+                            String description = new String();
+                            String due = new String();
+                            String done = new String();
+                            try {
+                                name = response.getString("name");
+                                description = response.getString("description");
+                                due = response.getString("due");
+                                done = response.getString("done");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Task tmpTask = new Task(name, description, due, done);
+                            tasks.add(tmpTask);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {}
+                    });
+
+            // Make the request (add it to the request queue)
+            ConnectionHandler.getInstance(this).addToRequestQueue(jsObjRequest);        }
     }
 
     class Task {
