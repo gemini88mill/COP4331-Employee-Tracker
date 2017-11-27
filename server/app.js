@@ -36,7 +36,8 @@ app.use(morgan('combined', {
 // ------------------ //
 // -----MONGOOSE----- //
 // ------------------ //
-mongoose.connect("mongodb://localhost/employeetracker", { useMongoClient: true });
+var url = process.env.DATABASEURL || "mongodb://localhost/employeetracker";
+mongoose.connect(url, { useMongoClient: true });
 var User    = require("./models/user");
 
 
