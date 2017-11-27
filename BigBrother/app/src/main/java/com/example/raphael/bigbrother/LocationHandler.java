@@ -33,8 +33,10 @@ public class LocationHandler extends AppCompatActivity implements LocationListen
     static double lat;
     static double lng;
     private long time = System.currentTimeMillis();
+    private static String url;
 
     public LocationHandler(AppCompatActivity activity) {
+        url = activity.getApplicationContext().getResources().getString(R.string.clockUrl);
         time = System.currentTimeMillis();
         locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
@@ -67,7 +69,7 @@ public class LocationHandler extends AppCompatActivity implements LocationListen
     @Override
     public void onLocationChanged(Location location) {
         // If it has been five minutes since last update, do so.
-        if (System.currentTimeMillis() - time > 300000 && ConnectionHandler.user.clockStatus) {
+        if (System.currentTimeMillis() - time > 3000 && ConnectionHandler.user != null && ConnectionHandler.user.clockStatus) {
             time = System.currentTimeMillis();
         // Update the last known location for the user
             lat = location.getLatitude();
@@ -77,8 +79,10 @@ public class LocationHandler extends AppCompatActivity implements LocationListen
             try {
                 body.put("username", ConnectionHandler.user.username);
                 body.put("location", getCoordinates());
-            } catch (JSONException e) {}
-            String url = getResources().getString(R.string.clockUrl);
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+            }
             JsonObjectRequest jsObjRequest = new JsonObjectRequest
                     (Request.Method.PUT, url, body, new Response.Listener<JSONObject>() {
                         @Override
