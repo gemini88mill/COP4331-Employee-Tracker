@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -19,6 +20,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        String user = getNameFromDB();
+
+        TextView mainText = (TextView) this.findViewById(R.id.textView);
+        mainText.setText(user);
+    }
+
+    private String getNameFromDB() {
+        return "Welcome default";
     }
 
     public void onTaskListClick(View view){

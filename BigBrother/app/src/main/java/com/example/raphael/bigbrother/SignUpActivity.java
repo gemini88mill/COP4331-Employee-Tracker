@@ -27,12 +27,12 @@ public class SignUpActivity extends AppCompatActivity {
         String url = getResources().getString(R.string.registerUrl);
 
         // Get EditText Values
-        EditText firstNameField = (EditText) findViewById(R.id.firstNameField);
-        EditText lastNameField = (EditText) findViewById(R.id.lastNameField);
-        EditText emailTextField = (EditText) findViewById(R.id.emailField);
-        EditText usernameTextField = (EditText) findViewById(R.id.usernameField);
-        EditText passwordTextField = (EditText) findViewById(R.id.passwordField);
-        EditText passwordVerificationTextField = (EditText) findViewById(R.id.passwordVerificationField);
+        EditText firstNameField = findViewById(R.id.firstNameField);
+        EditText lastNameField = findViewById(R.id.lastNameField);
+        EditText emailTextField = findViewById(R.id.emailField);
+        EditText usernameTextField = findViewById(R.id.usernameField);
+        EditText passwordTextField = findViewById(R.id.passwordField);
+        EditText passwordVerificationTextField = findViewById(R.id.passwordVerificationField);
         String firstName = firstNameField.getText().toString().trim();
         String lastName = lastNameField.getText().toString().trim();
         String email = emailTextField.getText().toString().trim();
