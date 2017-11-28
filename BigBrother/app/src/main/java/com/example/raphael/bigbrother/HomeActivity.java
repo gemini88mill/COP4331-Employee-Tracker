@@ -18,15 +18,23 @@ import org.json.JSONObject;
 
 public class HomeActivity extends AppCompatActivity {
 
+    Bundle extras;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        String user = getNameFromDB();
+        extras = getIntent().getExtras();
+        StringBuilder welcome = new StringBuilder();
+
+        welcome.append("Welcome ");
+        welcome.append(extras.getString("firstName"));
+        welcome.append(" ");
+        welcome.append(extras.getString("lastName"));
 
         TextView mainText = (TextView) this.findViewById(R.id.textView);
-        mainText.setText(user);
+        mainText.setText(welcome);
     }
 
     private String getNameFromDB() {

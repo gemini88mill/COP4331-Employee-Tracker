@@ -60,13 +60,17 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Successful login
+                        Bundle bundle = new Bundle();
                         try {
                             // Save the user's username for the session
                             ConnectionHandler.user.username = body.getString("username");
+
+                            bundle.putString("firstName", response.getString("firstName"));
+                            bundle.putString("lastName", response.getString("lastName"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        doLogin();
+                        doLogin(bundle);
                     }
                 }, new Response.ErrorListener() {
 
@@ -91,9 +95,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void doLogin() {
+    public void doLogin(Bundle bundle) {
         Intent intent = new Intent(this, PhotoActivity.class);
+        intent.putExtras(bundle);
         startActivity(intent);
+
     }
 
     public void goRegister(View view) {
