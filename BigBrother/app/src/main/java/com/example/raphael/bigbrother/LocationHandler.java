@@ -49,9 +49,11 @@ public class LocationHandler extends AppCompatActivity implements LocationListen
         Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
         // Make sure that the location isn't mock data
         // if (lastKnownLocation.isFromMockProvider()) return; // TODO(timp): include handling for when data is falsified
-        //lat = lastKnownLocation.getLatitude();
-        //lng = lastKnownLocation.getLongitude();
-        this.onLocationChanged(lastKnownLocation);
+        if (lastKnownLocation != null) {
+            lat = lastKnownLocation.getLatitude();
+            lng = lastKnownLocation.getLongitude();
+            this.onLocationChanged(lastKnownLocation);
+        }
 
     }
 
