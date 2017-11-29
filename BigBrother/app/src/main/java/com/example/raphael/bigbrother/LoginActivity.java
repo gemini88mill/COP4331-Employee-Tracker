@@ -64,9 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                         try {
                             // Save the user's username for the session
                             ConnectionHandler.user.username = body.getString("username");
-
-                            bundle.putString("firstName", response.getString("firstName"));
-                            bundle.putString("lastName", response.getString("lastName"));
+                            ConnectionHandler.user.firstName = response.getString("firstName");
+                            ConnectionHandler.user.lastName = response.getString("lastName");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
