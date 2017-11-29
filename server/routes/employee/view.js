@@ -9,7 +9,8 @@ var     router      = require('express').Router(),
 // see information for singular employee; /employee/:id url
 router.get("/:id", middleware.isAdministrator, function(req, res) {
     
-    Employee.findById(req.params.id, function(err, employee) {
+    // find employee by id, then populate list of tasks with actual tasks documents instead of references for view purposes
+    Employee.findById(req.params.id).populate("tasks").exec(function(err, employee){
         if(err) {
             console.log("Error retrieving employee with id: " + req.params.id);
             res.redirect("employee/index");
