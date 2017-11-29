@@ -29,9 +29,9 @@ public class HomeActivity extends AppCompatActivity {
         StringBuilder welcome = new StringBuilder();
 
         welcome.append("Welcome ");
-        welcome.append(extras.getString("firstName"));
+        welcome.append(ConnectionHandler.user.firstName);
         welcome.append(" ");
-        welcome.append(extras.getString("lastName"));
+        welcome.append(ConnectionHandler.user.lastName);
 
         TextView mainText = (TextView) this.findViewById(R.id.textView);
         mainText.setText(welcome);

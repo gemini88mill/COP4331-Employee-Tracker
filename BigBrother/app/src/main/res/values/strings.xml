@@ -18,11 +18,11 @@
     <string name="nameTextArea">Name</string>
     <string name="signInLabel">Sign Up</string>
     <string name="action_settings">Settings</string>
-    <string name="registerUrl">http://192.168.0.3:3000/employee/register</string>
-    <string name="loginUrl">http://192.168.0.3:3000/employee/login</string>
-    <string name="clockUrl">http://192.168.0.3:3000/employee/clock</string>
-    <string name="uploadUrl">http://192.168.0.3:3000/employee/upload</string>
-    <string name="tasksUrl">http://192.168.0.3:3000/employee/tasks</string>
+    <string name="registerUrl">http://big-brother-cop4331.herokuapp.com/employee/register</string>
+    <string name="loginUrl">http://big-brother-cop4331.herokuapp.com/employee/login</string>
+    <string name="clockUrl">http://big-brother-cop4331.herokuapp.com/employee/clock</string>
+    <string name="uploadUrl">http://big-brother-cop4331.herokuapp.com/employee/upload</string>
+    <string name="tasksUrl">http://big-brother-cop4331.herokuapp.com/employee/tasks</string>
     <string name="title_activity_maps">Map</string>
     <string name="register">Register</string>
     <string name="last_name">Last Name</string>

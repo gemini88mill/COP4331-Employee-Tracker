@@ -71,6 +71,8 @@ public class ConnectionHandler {
     class User {
         public String username;
         public Boolean clockStatus;
+        public String firstName;
+        public String lastName;
 
         public User() { this.clockStatus = false; }
     }

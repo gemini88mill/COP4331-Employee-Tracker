@@ -65,6 +65,8 @@ public class SignUpActivity extends AppCompatActivity {
                         // Successful login
                         try {
                             ConnectionHandler.user.username = body.getString("username");
+                            ConnectionHandler.user.firstName = body.getString("firstName");
+                            ConnectionHandler.user.lastName = body.getString("lastName");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
