@@ -17,7 +17,7 @@ router.delete("/:id", middleware.isSupport, function(req, res) {
        else {
            console.log("Employee deleted.");
            req.flash("success", "Employee successfully deleted.");
-           res.render("employee");
+           res.redirect("/employee");
        }
    });
    
