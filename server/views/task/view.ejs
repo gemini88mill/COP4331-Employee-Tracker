@@ -21,13 +21,25 @@
       <div class="container col-2">
         <div class="row"><b>DESCRIPTION</b></div>
         <div class="row"><b>DUE DATE</b></div>
-        <div class="row"><b>IS COMPLETE</b></div>
+        <div class="row"><b>STATUS</b></div>
         <div class="row"><b>ASSIGNED TO</b></div>
       </div>
       <div class="container col-10">
         <div class="row"><%= task.description %></div>
         <div class="row"><%= task.due %></div>
-        <div class="row"><%= task.done %></div>
+        <div class="row">
+          
+           <form style = "display: inline;" action="/task/edit/<%= task._id %>/markDone" method="POST">
+                <button class = "btn btn-sm btn-info">
+                    <% if(task.done){ %>
+                      COMPLETE
+                    <% } else { %>
+                      INCOMPLETE
+                    <% } %>
+                </button>
+          </form>
+          
+        </div>
         <div class="row">
           <% employees.forEach(function(employee){ %>
               <%= employee.firstName %> <%= employee.lastName %><br>

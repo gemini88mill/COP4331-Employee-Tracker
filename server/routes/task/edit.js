@@ -112,4 +112,26 @@ router.put("/:id", middleware.isAdministrator, function(req, res) {
     });
 });
 
+// marks the task as done
+router.post("/:id/markDone", middleware.isAdministrator, function(req, res) {
+    
+    // find task document with unique id, change "done" to be whatever it's not right now, redirect
+    Task.findById(req.params.id, function(err, task) {
+        
+        if(err) {
+            console.log("Unable to set task with id " + req.params.id + " to complete or not complete; " + err + ".");
+            res.redirect('back');
+        }
+        
+        else {
+            task.done = !task.done;
+            task.save();
+            console.log("User " + req.user.username + " set task with id " + req.params.id + " to done " + task.done + ".");
+            res.redirect("/task/view/" + req.params.id);
+        }
+        
+    });
+    
+});
+
 module.exports = router;
