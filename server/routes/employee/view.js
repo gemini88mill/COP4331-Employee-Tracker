@@ -7,7 +7,7 @@ var     router      = require('express').Router(),
 
 
 // see information for singular employee; /employee/:id url
-router.get("/:id", middleware.isAdministrator, function(req, res) {
+router.get("/:id", middleware.isAuthenticated, function(req, res) {
     
     // find employee by id, then populate list of tasks with actual tasks documents instead of references for view purposes
     Employee.findById(req.params.id).populate("tasks").exec(function(err, employee){
@@ -17,8 +17,9 @@ router.get("/:id", middleware.isAdministrator, function(req, res) {
         }
         else {
             // if the user is a support user viewing an admin or employee, or is an admin user
-            // viewing an employee, render the page; otherwise, log an error and redirect
-            if((req.user.privilege === 1 && employee.privilege === 0) || (req.user.privilege === 2 && employee.privilege < 2))
+            // viewing an employee, or a level-0 users viewing a public user, render the page; otherwise, log an error and redirect
+            if((req.user.privilege === 1 && employee.privilege === 0) || (req.user.privilege === 2 && employee.privilege < 2)
+             || (req.user.privilege === 0 && employee.isPublic))
                 res.render("employee/view", {employee: employee});
             
             else {

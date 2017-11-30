@@ -7,7 +7,7 @@ middlewareObj.isAuthenticated = function(req, res, next) {
     }
     
     req.flash("error", "You must be logged in to do that.");
-    res.redirect("/");
+    res.redirect("/login");
 };
 
 middlewareObj.isAdministrator = function(req, res, next) {

@@ -76,6 +76,12 @@ var userSchema = new mongoose.Schema( {
                 },
 
     timeLastUpdate:     Date, // time of last GPS update
+    
+    // if an administrator has decided to put an employee's GPS location on "private" mode
+    isPublic:  {
+                    type: Boolean,
+                    default: true
+                },
 
     clockStatus: {
 
