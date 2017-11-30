@@ -58,29 +58,32 @@ var userSchema = new mongoose.Schema( {
     // group: Number, // not sure if we're still doing group assignments for employees
     tasks:      [ // task list stored by task id
                     {
-                        type: mongoose.Schema.Types.ObjectId,
-                        ref: "Task"
+                        type:   mongoose.Schema.Types.ObjectId,
+                        ref:    "Task"
                     }
                 ],
 
     picture:    {
-                    type:   String, // string for a hosted URL, at least for now
-                    default: "https://d3g919u5f14ld1.cloudfront.net/assets/images/users/default-avatar.svg"
+                    type:       String, // string for a hosted URL, at least for now
+                    default:    "https://d3g919u5f14ld1.cloudfront.net/assets/images/users/default-avatar.svg"
                 },
 
-    position:   String,
+    position:   {
+                    type:       String,
+                    default:    "Employee" // just set a default for views purposes
+                },
 
     location:   {
-                    lat: Number,
-                    lng: Number
+                    lat:        Number,
+                    lng:        Number
                 },
 
     timeLastUpdate:     Date, // time of last GPS update
     
     // if an administrator has decided to put an employee's GPS location on "private" mode
     isPublic:  {
-                    type: Boolean,
-                    default: true
+                    type:       Boolean,
+                    default:    true
                 },
 
     clockStatus: {
