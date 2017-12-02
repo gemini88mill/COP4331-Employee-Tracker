@@ -1,0 +1,4 @@
+#Fri Dec 01 23:04:59 EST 2017
+base.0=/home/raphael/AndroidStudioProjects/EmployeeTracker/BigBrother/app/build/intermediates/transforms/dexMerger/debug/9
+path.0=classes.dex
+renamed.0=classes.dex
